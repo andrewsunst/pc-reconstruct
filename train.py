@@ -11,5 +11,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(BASE_DIR)
+sys.path.append(os.path.join((BASE_DIR, 'models')))
 
 
