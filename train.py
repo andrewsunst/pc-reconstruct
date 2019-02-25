@@ -61,4 +61,48 @@ if not os.path.exists(LOG_DIR): os.mkdir(LOG_DIR)
 LOG_FOUT = open(os.path.join(LOG_DIR,'log_train.txt'),'w')
 LOG_FOUT.write(str(args)+'\n')
 
+MAX_NUM_POINT = 2048
+NUM_CLASSES = 40
+
+BN_INIT_DECAY = 0.5
+BN_DECAY_DECAY_RATE = 0.5
+BN_DECAY_DECAY_STEP = float(DECAY_STEP)
+BN_DECAY_CLIP = 0.99
+
+TRAIN_FILES = provider.getDataFiles( \
+    os.path.join(BASE_DIR, 'data/modelnet40_ply_hdf5_2048/train_files.txt'))
+TEST_FILES = provider.getDataFiles(\
+    os.path.join(BASE_DIR, 'data/modelnet40_ply_hdf5_2048/test_files.txt'))
+
+
+def log_string(out_str):
+    LOG_FOUT.write(out_str+'\n')
+    LOG_FOUT.flush()
+    print(out_str)
+
+
+def get_learning_rate(batch):
+    learning_rate = 1.0
+    '''
+     BASE_LEARNING_RATE,  # Base learning rate.
+     batch * BATCH_SIZE,  # Current index into the dataset.
+     DECAY_STEP,          # Decay step.
+     DECAY_RATE,          # Decay rate
+    '''
+    learning_rate = max(learning_rate, 0.00001)
+    return learning_rate
+
+
+def get_bn_decay(batch):
+    bn_momentum = 1.0
+    '''
+    BN_INIT_DECAY,
+    batch*BATCH_SIZE,
+    BN_DECAY_DECAY_STEP,
+    BN_DECAY_DECAY_RATE,
+    '''
+    bn_decay = min(BN_DECAY_CLIP,1-bn_momentum)
+    return bn_decay
+
+
 
