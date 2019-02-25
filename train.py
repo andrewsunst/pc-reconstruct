@@ -16,7 +16,6 @@ sys.path.append(os.path.join(BASE_DIR, 'models'))
 
 parser = argparse.ArgumentParser(description='PyTorch Point Cloud Classification Model')
 parser.add_argument('--cuda', type=str, default='false', help='use CUDA')
-parser.add_argument('--model', default='pointnet_cls')
 parser.add_argument('--num_point', type=int, default=1024)
 parser.add_argument('--max_epoch', type=int, default=250)
 parser.add_argument('--batch_size', type=int , default=32)
@@ -25,7 +24,8 @@ parser.add_argument('--momentum', type=float, default=0.9)
 parser.add_argument('--optimizer', default='adam')
 parser.add_argument('--decay_step', type=int, default=200000)
 parser.add_argument('--decay_rate', type=float, default=0.7)
-
+parser.add_argument('--model', default='model_cls')
+parser.add_argument('--log_dir', default='log')
 args = parser.parse_args()
 
 args.device = None
@@ -48,10 +48,17 @@ OPTIMIZER = args.optimizer
 DECAY_STEP = args.decay_step
 DECAY_RATE = args.decay_rate
 
-print('batch size', BATCH_SIZE, 'num point', NUM_POINT,\
-       'max epoch', MAX_EPOCH, 'base learning rate',BASE_LEARNING_RATE ,\
-       'momentum', MOMENTUM, 'optimizer', OPTIMIZER, 'decay step',\
-      DECAY_STEP,'decay rate', DECAY_RATE)
+print('\nbatch size', BATCH_SIZE, '\nnum point', NUM_POINT,\
+       '\nmax epoch', MAX_EPOCH, '\nbase learning rate',\
+      BASE_LEARNING_RATE ,'\nmomentum', MOMENTUM, '\noptimizer',\
+      OPTIMIZER, '\ndecay step',\
+      DECAY_STEP,'\ndecay rate', DECAY_RATE)
 
+MODEL = importlib.import_module(args.model)
+MODEL_FILE = os.path.join(BASE_DIR,'models', args.model+'.py')
+LOG_DIR = args.log_dir
+if not os.path.exists(LOG_DIR): os.mkdir(LOG_DIR)
+LOG_FOUT = open(os.path.join(LOG_DIR,'log_train.txt'),'w')
+LOG_FOUT.write(str(args)+'\n')
 
 
