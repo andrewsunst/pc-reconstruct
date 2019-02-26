@@ -5,9 +5,11 @@ def exp_lr_decay(optimizer, global_step, init_lr, decay_steps, decay_rate, lr_cl
     else:
         lr = init_lr * decay_rate**(global_step / decay_steps)
     lr = max(lr, lr_clip)
-
+    return lr
+    '''
     if global_step % decay_steps == 0:
         print('LR is set to {}'.format(lr))
 
     for param_group in optimizer.param_groups:
-param_group['lr'] = lr
+        param_group['lr'] = lr
+    '''

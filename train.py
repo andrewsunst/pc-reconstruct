@@ -1,5 +1,7 @@
 import argparse
 import math
+import random
+
 import h5py
 import numpy as np
 import importlib
@@ -28,6 +30,8 @@ parser.add_argument('--model', default='model_cls')
 parser.add_argument('--log_dir', default='log')
 args = parser.parse_args()
 
+args.manualSeed = random.randint(1, 10000)
+torch.manual_seed(args.manualSeed)
 args.device = None
 if args.cuda == 'true':
     if torch.cuda.is_available():
@@ -53,7 +57,7 @@ print('\nbatch size', BATCH_SIZE, '\nnum point', NUM_POINT,\
       BASE_LEARNING_RATE ,'\nmomentum', MOMENTUM, '\noptimizer',\
       OPTIMIZER, '\ndecay step',\
       DECAY_STEP,'\ndecay rate', DECAY_RATE)
-
+print(args)
 MODEL = importlib.import_module(args.model)
 MODEL_FILE = os.path.join(BASE_DIR,'models', args.model+'.py')
 LOG_DIR = args.log_dir
@@ -80,9 +84,16 @@ def log_string(out_str):
     LOG_FOUT.flush()
     print(out_str)
 
+def exp_lr_decay( init_lr,global_step,  decay_steps, decay_rate, staircase=True):
+    """Decay learning rate by a factor of 0.1 every lr_decay_epoch epochs."""
+    if staircase:
+        lr = init_lr * decay_rate**(global_step // decay_steps)
+    else:
+        lr = init_lr * decay_rate**(global_step / decay_steps)
+    return lr
 
 def get_learning_rate(batch):
-    learning_rate = 1.0
+    learning_rate = exp_lr_decay(BASE_LEARNING_RATE, batch*BATCH_SIZE, DECAY_STEP, DECAY_RATE, staircase=True)
     '''
      BASE_LEARNING_RATE,  # Base learning rate.
      batch * BATCH_SIZE,  # Current index into the dataset.
@@ -94,15 +105,21 @@ def get_learning_rate(batch):
 
 
 def get_bn_decay(batch):
-    bn_momentum = 1.0
+    bn_momentum = exp_lr_decay(
+                      BN_INIT_DECAY,
+                      batch*BATCH_SIZE,
+                      BN_DECAY_DECAY_STEP,
+                      BN_DECAY_DECAY_RATE,
+                      staircase=True)
     '''
     BN_INIT_DECAY,
     batch*BATCH_SIZE,
     BN_DECAY_DECAY_STEP,
     BN_DECAY_DECAY_RATE,
     '''
-    bn_decay = min(BN_DECAY_CLIP,1-bn_momentum)
+    bn_decay = min(BN_DECAY_CLIP, 1-bn_momentum)
     return bn_decay
 
 
-
+def train():
+    model.train()
