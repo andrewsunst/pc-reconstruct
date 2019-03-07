@@ -4,13 +4,13 @@ import random
 
 import h5py
 import numpy as np
-import importlib
 import os
 import sys
 import torch
 import provider
 import torch.nn as nn
 import torch.nn.functional as F
+import models.model_cls
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
@@ -58,8 +58,6 @@ print('\nbatch size', BATCH_SIZE, '\nnum point', NUM_POINT,\
       OPTIMIZER, '\ndecay step',\
       DECAY_STEP,'\ndecay rate', DECAY_RATE)
 print(args)
-MODEL = importlib.import_module(args.model)
-MODEL_FILE = os.path.join(BASE_DIR,'models', args.model+'.py')
 LOG_DIR = args.log_dir
 if not os.path.exists(LOG_DIR): os.mkdir(LOG_DIR)
 LOG_FOUT = open(os.path.join(LOG_DIR,'log_train.txt'),'w')
