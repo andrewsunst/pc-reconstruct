@@ -76,6 +76,9 @@ TRAIN_FILES = provider.getDataFiles( \
 TEST_FILES = provider.getDataFiles(\
     os.path.join(BASE_DIR, 'data/modelnet40_ply_hdf5_2048/test_files.txt'))
 
+classifier = models.model_cls.input_transform_net()
+
+
 
 def log_string(out_str):
     LOG_FOUT.write(out_str+'\n')
@@ -119,5 +122,8 @@ def get_bn_decay(batch):
     return bn_decay
 
 
-def train():
-    model.train()
+def main():
+    classifier.train()
+
+if __name__ == "__main__":
+    main()
