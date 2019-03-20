@@ -124,8 +124,34 @@ def _variable_with_weight_decay(shape, stddev, wd, use_xavier=True):
     return 0
 
 
+class point_cls(nn.Module):
+    def __init__(self):
+        super(point_cls, self).__init__()
+        self.inputrans = input_transform_net()
+        self.prefeature = pre_feature_transfrom_net()
+        self.featuretransform = feature_transform_net()
+        self.output = output_net()
+
+    def forward(self, x):
+        point_with_channel = x.view(32, 1, 1024, 3)
+        out = self.inputrans(point_with_channel)
+        data = torch.matmul(x, out)
+        data=data.view(32,1,1024,3)
+        pre_out = self.prefeature(data)
+        out2 = self.featuretransform(pre_out)
+        pre_out = pre_out.squeeze()
+        pre_out = pre_out.permute(0, 2, 1)
+        out2 = out2.permute(0, 2, 1)
+        net_transformed = torch.matmul(pre_out, out2)
+        net_transformed = net_transformed.permute(0, 2, 1)
+        net_transformed = net_transformed.view(32, 64, 1024, 1)
+        output = self.output(net_transformed)
+        return output
+
+
 if __name__ == '__main__':
     sim_data = Variable(torch.rand(32, 1, 1024, 3))
+    print(sim_data.type())
     trans = input_transform_net()
     out = trans(sim_data)
     print('input_transform_net', out.size())
@@ -152,6 +178,11 @@ if __name__ == '__main__':
     net_transformed = net_transformed.view(32, 64, 1024, 1)
     print('net_transformed torch style', net_transformed.size())
 
-    outputnet=output_net()
-    out3=outputnet(net_transformed)
+    outputnet = output_net()
+    out3 = outputnet(net_transformed)
     print('final out put', out3.size())
+
+    sim_data2 = Variable(torch.rand(32, 1024, 3))
+    pointcls=point_cls()
+    out4=pointcls(sim_data2)
+    print(out4.size())
