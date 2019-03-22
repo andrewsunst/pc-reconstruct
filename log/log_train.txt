@@ -1,2 +1,3 @@
-Namespace(batch_size=32, cuda='false', decay_rate=0.7, decay_step=200000, device=device(type='cpu'), learning_rate=0.001, log_dir='log', manualSeed=533, max_epoch=250, model='model_cls', momentum=0.9, num_point=1024, optimizer='adam')
+Namespace(batch_size=32, cuda='false', decay_rate=0.7, decay_step=200000, device=device(type='cpu'), learning_rate=0.001, log_dir='log', manualSeed=6162, max_epoch=250, model='model_cls', momentum=0.9, num_point=1024, optimizer='adam')
 ----0-----
+----1-----
