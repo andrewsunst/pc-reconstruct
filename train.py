@@ -135,6 +135,7 @@ def get_bn_decay(batch):
 for epoch in range(args.max_epoch):
     train_file_idxs = np.arange(0, len(TRAIN_FILES))
     np.random.shuffle(train_file_idxs)
+    log_string('epoch' + str(epoch))
     for fn in range(len(TRAIN_FILES)):
         log_string('----' + str(fn) + '-----')
         current_data, current_label = provider.loadDataFile(TRAIN_FILES[train_file_idxs[fn]])
@@ -155,13 +156,10 @@ for epoch in range(args.max_epoch):
             jittered_data = torch.from_numpy(jittered_data).float()
             label = current_label[start_idx:end_idx]
             label = torch.from_numpy(label).float()
-            print(jittered_data.type())
             optimizer.zero_grad()
             model.train()
             criterion = nn.CrossEntropyLoss()
             pred = model(jittered_data)
-            print(pred.size(),pred.type())
-            print(label.size(),label.type())
             label=label.long()
             loss = criterion(pred, label)
             print(loss)
