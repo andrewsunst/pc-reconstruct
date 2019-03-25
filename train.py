@@ -84,7 +84,7 @@ feature_transform = models.model_cls.feature_transform_net()
 output = models.model_cls.output_net()
 
 model = models.model_cls.point_cls()
-
+model=model.to(args.device)
 optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
 
 
@@ -154,13 +154,15 @@ for epoch in range(args.max_epoch):
             rotated_data = provider.rotate_point_cloud(current_data[start_idx:end_idx, :, :])
             jittered_data = provider.jitter_point_cloud(rotated_data)
             jittered_data = torch.from_numpy(jittered_data).float()
+            jittered_data=jittered_data.to(args.device)
             label = current_label[start_idx:end_idx]
             label = torch.from_numpy(label).float()
+            label=label.to(args.device)
             optimizer.zero_grad()
             model.train()
             criterion = nn.CrossEntropyLoss()
             pred = model(jittered_data)
-            label=label.long()
+            label = label.long()
             loss = criterion(pred, label)
             print(loss)
             loss.backward()

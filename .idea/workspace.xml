@@ -17,10 +17,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="158" column="33" selection-start-line="158" selection-start-column="33" selection-end-line="158" selection-end-column="33" />
+            <state relative-caret-position="131">
+              <caret line="163" selection-start-line="163" selection-end-line="163" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#2917#2987#0" />
+                <element signature="e#3075#3321#0" />
+                <element signature="e#3358#3742#0" />
+                <element signature="e#3774#4112#0" />
               </folding>
             </state>
           </provider>
@@ -45,7 +49,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/model_cls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="713">
+            <state relative-caret-position="3243">
               <caret line="148" column="21" selection-start-line="148" selection-start-column="21" selection-end-line="148" selection-end-column="21" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
@@ -66,6 +70,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>torch</find>
+      <find>learning</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -238,13 +243,13 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32956153" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2082153" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.5141643" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3696884" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39235127" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.23937677" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3286119" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32843137" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.38526914" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32843137" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -283,20 +288,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/provider.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1196">
-          <caret line="55" column="31" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-            <element signature="e#1903#1957#0" />
-            <element signature="e#1989#2090#0" />
-            <element signature="e#2195#2323#0" />
-            <element signature="e#2366#2405#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/python_lib/Lib/site-packages/torch/nn/functional.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="97">
@@ -311,22 +302,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/model_cls.py">
+    <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="713">
-          <caret line="148" column="21" selection-start-line="148" selection-start-column="21" selection-end-line="148" selection-end-column="21" />
+        <state relative-caret-position="131">
+          <caret line="163" selection-start-line="163" selection-end-line="163" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#2917#2987#0" />
+            <element signature="e#3075#3321#0" />
+            <element signature="e#3358#3742#0" />
+            <element signature="e#3774#4112#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
+    <entry file="file://$PROJECT_DIR$/provider.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="158" column="33" selection-start-line="158" selection-start-column="33" selection-end-line="158" selection-end-column="33" />
+        <state relative-caret-position="1196">
+          <caret line="55" column="31" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#1903#1957#0" />
+            <element signature="e#1989#2090#0" />
+            <element signature="e#2195#2323#0" />
+            <element signature="e#2366#2405#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/model_cls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3243">
+          <caret line="148" column="21" selection-start-line="148" selection-start-column="21" selection-end-line="148" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
