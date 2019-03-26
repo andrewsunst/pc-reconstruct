@@ -85,7 +85,7 @@ output = models.model_cls.output_net()
 
 model = models.model_cls.point_cls()
 model = model.to(args.device)
-optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
+
 
 
 def log_string(out_str):
@@ -144,6 +144,7 @@ for epoch in range(args.max_epoch):
         current_label = np.squeeze(current_label)
         file_size = current_data.shape[0]
         num_batches = file_size // BATCH_SIZE
+        
         total_correct = 0
         total_seen = 0
         loss_sum = 0
@@ -160,6 +161,7 @@ for epoch in range(args.max_epoch):
             label = current_label[start_idx:end_idx]
             label = torch.from_numpy(label).float()
             label = label.to(args.device)
+            optimizer = optim.Adam(model.parameters(), lr=args.learning_rate*math.pow(DECAY_RATE,(batch_idx*BATCH_SIZE)/DECAY_STEP))
             optimizer.zero_grad()
             model.train()
             criterion = nn.CrossEntropyLoss()
@@ -168,5 +170,5 @@ for epoch in range(args.max_epoch):
             loss = criterion(pred, label)
             loss.backward()
             optimizer.step()
-            loss_sum+=loss
-        log_string('mean loss: %f'%(loss_sum/float(num_batches)))
+            loss_sum += loss
+        log_string('mean loss: %f' % (loss_sum / float(num_batches)))
