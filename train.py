@@ -84,7 +84,7 @@ feature_transform = models.model_cls.feature_transform_net()
 output = models.model_cls.output_net()
 
 model = models.model_cls.point_cls()
-model=model.to(args.device)
+model = model.to(args.device)
 optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
 
 
@@ -135,18 +135,20 @@ def get_bn_decay(batch):
 for epoch in range(args.max_epoch):
     train_file_idxs = np.arange(0, len(TRAIN_FILES))
     np.random.shuffle(train_file_idxs)
-    log_string('epoch' + str(epoch))
+    log_string('epoch No.' + str(epoch))
     for fn in range(len(TRAIN_FILES)):
         log_string('----' + str(fn) + '-----')
         current_data, current_label = provider.loadDataFile(TRAIN_FILES[train_file_idxs[fn]])
         current_data = current_data[:, 0:NUM_POINT, :]
         current_data, current_label, _ = provider.shuffle_data(current_data, np.squeeze(current_label))
         current_label = np.squeeze(current_label)
+        file_size = current_data.shape[0]
+        num_batches = file_size // BATCH_SIZE
         total_correct = 0
         total_seen = 0
         loss_sum = 0
 
-        for batch_idx in range(args.batch_size):
+        for batch_idx in range(num_batches):
             start_idx = batch_idx * BATCH_SIZE
             end_idx = (batch_idx + 1) * BATCH_SIZE
 
@@ -154,16 +156,17 @@ for epoch in range(args.max_epoch):
             rotated_data = provider.rotate_point_cloud(current_data[start_idx:end_idx, :, :])
             jittered_data = provider.jitter_point_cloud(rotated_data)
             jittered_data = torch.from_numpy(jittered_data).float()
-            jittered_data=jittered_data.to(args.device)
+            jittered_data = jittered_data.to(args.device)
             label = current_label[start_idx:end_idx]
             label = torch.from_numpy(label).float()
-            label=label.to(args.device)
+            label = label.to(args.device)
             optimizer.zero_grad()
             model.train()
             criterion = nn.CrossEntropyLoss()
             pred = model(jittered_data)
             label = label.long()
             loss = criterion(pred, label)
-            print(loss)
             loss.backward()
             optimizer.step()
+            loss_sum+=loss
+        log_string('mean loss: %f'%(loss_sum/float(num_batches)))
