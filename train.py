@@ -175,7 +175,7 @@ for epoch in range(args.max_epoch):
         log_string('mean loss: %f' % (loss_sum / float(num_batches)))
 
     # evaluate for each epoch
-    model.eval()
+
     total_correct = 0
     total_seen = 0
     loss_sum = 0
@@ -202,6 +202,11 @@ for epoch in range(args.max_epoch):
             label = current_label[start_idx:end_idx]
             label = torch.from_numpy(label).float()
             label = label.to(args.device)
+            label = label.long()
+            model.eval()
+            criterion = nn.CrossEntropyLoss()
             pred_val = model(jittered_data)
-            pred_val = np.argmax(pred_val, 1)
-            print(pred_val)
+            loss = criterion(pred_val, label)
+            pred_choice = pred_val.data.max(1)[1]
+            correct = pred_choice.eq(label.data).cpu().sum()
+            print(correct)
