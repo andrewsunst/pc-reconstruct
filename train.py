@@ -87,7 +87,6 @@ model = models.model_cls.point_cls()
 model = model.to(args.device)
 
 
-
 def log_string(out_str):
     LOG_FOUT.write(out_str + '\n')
     LOG_FOUT.flush()
@@ -136,6 +135,7 @@ for epoch in range(args.max_epoch):
     train_file_idxs = np.arange(0, len(TRAIN_FILES))
     np.random.shuffle(train_file_idxs)
     log_string('epoch No.' + str(epoch))
+    # training process
     for fn in range(len(TRAIN_FILES)):
         log_string('----' + str(fn) + '-----')
         current_data, current_label = provider.loadDataFile(TRAIN_FILES[train_file_idxs[fn]])
@@ -144,7 +144,7 @@ for epoch in range(args.max_epoch):
         current_label = np.squeeze(current_label)
         file_size = current_data.shape[0]
         num_batches = file_size // BATCH_SIZE
-        
+
         total_correct = 0
         total_seen = 0
         loss_sum = 0
@@ -161,7 +161,8 @@ for epoch in range(args.max_epoch):
             label = current_label[start_idx:end_idx]
             label = torch.from_numpy(label).float()
             label = label.to(args.device)
-            optimizer = optim.Adam(model.parameters(), lr=args.learning_rate*math.pow(DECAY_RATE,(batch_idx*BATCH_SIZE)/DECAY_STEP))
+            optimizer = optim.Adam(model.parameters(),
+                                   lr=args.learning_rate * math.pow(DECAY_RATE, (batch_idx * BATCH_SIZE) / DECAY_STEP))
             optimizer.zero_grad()
             model.train()
             criterion = nn.CrossEntropyLoss()
@@ -172,3 +173,35 @@ for epoch in range(args.max_epoch):
             optimizer.step()
             loss_sum += loss
         log_string('mean loss: %f' % (loss_sum / float(num_batches)))
+
+    # evaluate for each epoch
+    model.eval()
+    total_correct = 0
+    total_seen = 0
+    loss_sum = 0
+    total_seen_class = [0 for _ in range(NUM_CLASSES)]
+    total_correct_class = [0 for _ in range(NUM_CLASSES)]
+    for fn in range(len(TEST_FILES)):
+        log_string('----' + str(fn) + '-----')
+        current_data, current_label = provider.loadDataFile(TEST_FILES[fn])
+        current_data = current_data[:, 0:NUM_POINT, :]
+        current_label = np.squeeze(current_label)
+
+        file_size = current_data.shape[0]
+        num_batches = file_size // BATCH_SIZE
+
+        for batch_idx in range(num_batches):
+            start_idx = batch_idx * BATCH_SIZE
+            end_idx = (batch_idx + 1) * BATCH_SIZE
+
+            # Augment batched point clouds by rotation and jittering
+            rotated_data = provider.rotate_point_cloud(current_data[start_idx:end_idx, :, :])
+            jittered_data = provider.jitter_point_cloud(rotated_data)
+            jittered_data = torch.from_numpy(jittered_data).float()
+            jittered_data = jittered_data.to(args.device)
+            label = current_label[start_idx:end_idx]
+            label = torch.from_numpy(label).float()
+            label = label.to(args.device)
+            pred_val = model(jittered_data)
+            pred_val = np.argmax(pred_val, 1)
+            print(pred_val)
