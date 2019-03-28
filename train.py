@@ -1,16 +1,11 @@
 import argparse
 import math
-import random
-
-import h5py
 import numpy as np
 import os
 import sys
 import torch
 import provider
-from torch.autograd import Variable
 import torch.nn as nn
-import torch.nn.functional as F
 import models.model_cls
 import torch.optim as optim
 
@@ -31,9 +26,6 @@ parser.add_argument('--decay_rate', type=float, default=0.7)
 parser.add_argument('--model', default='model_cls')
 parser.add_argument('--log_dir', default='log')
 args = parser.parse_args()
-
-args.manualSeed = random.randint(1, 10000)
-torch.manual_seed(args.manualSeed)
 args.device = None
 if args.cuda == 'true':
     if torch.cuda.is_available():
