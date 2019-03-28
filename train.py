@@ -198,11 +198,11 @@ for epoch in range(args.max_epoch):
             rotated_data = provider.rotate_point_cloud(current_data[start_idx:end_idx, :, :])
             jittered_data = provider.jitter_point_cloud(rotated_data)
             jittered_data = torch.from_numpy(jittered_data).float()
-
+            jittered_data = jittered_data.to(args.device)
             label = current_label[start_idx:end_idx]
             label = torch.from_numpy(label).float()
-
-            label = label.long()
+            label = label.to(args.device)
+            label=label.long()
             model.eval()
             criterion = nn.CrossEntropyLoss()
             pred_val = model(jittered_data)
