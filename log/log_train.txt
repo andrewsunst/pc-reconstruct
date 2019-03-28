@@ -1,61 +1,63 @@
-Namespace(batch_size=32, cuda='true', decay_rate=0.7, decay_step=200000, device=device(type='cuda'), learning_rate=0.001, log_dir='log', manualSeed=1844, max_epoch=250, model='model_cls', momentum=0.9, num_point=1024, optimizer='adam')
+Namespace(batch_size=32, cuda='true', decay_rate=0.7, decay_step=200000, device=device(type='cuda'), learning_rate=0.001, log_dir='log', manualSeed=7297, max_epoch=250, model='model_cls', momentum=0.9, num_point=1024, optimizer='adam')
 epoch No.0
 ----0-----
-mean loss: 3.614360
+mean loss: 3.540808
 ----1-----
-mean loss: 3.307576
+mean loss: 3.212473
 ----2-----
-mean loss: 3.149921
+mean loss: 3.082791
 ----3-----
-mean loss: 3.094078
+mean loss: 3.103119
 ----4-----
-mean loss: 2.988154
+mean loss: 3.155835
 ----0-----
 ----1-----
+loss_sumtensor(7056.9941, device='cuda:0', grad_fn=<AddBackward0>)
+total_correct0
 epoch No.1
 ----0-----
-mean loss: 2.995023
+mean loss: 3.001247
 ----1-----
-mean loss: 2.990351
+mean loss: 3.153520
 ----2-----
-mean loss: 2.928291
+mean loss: 3.062863
 ----3-----
-mean loss: 2.968940
+mean loss: 3.008321
 ----4-----
-mean loss: 2.830991
+mean loss: 3.083861
 ----0-----
 ----1-----
+loss_sumtensor(8583.4404, device='cuda:0', grad_fn=<AddBackward0>)
+total_correct0
 epoch No.2
 ----0-----
-mean loss: 2.879065
+mean loss: 3.059409
 ----1-----
-mean loss: 3.048061
+mean loss: 3.012573
 ----2-----
-mean loss: 2.908720
+mean loss: 2.967633
 ----3-----
-mean loss: 2.887644
+mean loss: 3.063803
 ----4-----
-mean loss: 2.888602
+mean loss: 2.845319
 ----0-----
 ----1-----
+loss_sumtensor(6999.6338, device='cuda:0', grad_fn=<AddBackward0>)
+total_correct0
 epoch No.3
 ----0-----
-mean loss: 2.731594
+mean loss: 3.042532
 ----1-----
-mean loss: 3.011237
+mean loss: 2.990814
 ----2-----
-mean loss: 2.826429
+mean loss: 3.143579
 ----3-----
-mean loss: 2.831601
+mean loss: 3.000316
 ----4-----
-mean loss: 2.826632
+mean loss: 2.925740
 ----0-----
 ----1-----
+loss_sumtensor(7794.9248, device='cuda:0', grad_fn=<AddBackward0>)
+total_correct0
 epoch No.4
 ----0-----
-mean loss: 2.678135
-----1-----
-mean loss: 2.834633
-----2-----
-mean loss: 2.842845
-----3-----

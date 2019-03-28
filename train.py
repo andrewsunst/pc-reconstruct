@@ -207,12 +207,11 @@ for epoch in range(args.max_epoch):
             criterion = nn.CrossEntropyLoss()
             pred_val = model(jittered_data)
             loss = criterion(pred_val, label)
+            
             pred_choice = pred_val.data.max(1)[1]
             correct = pred_choice.eq(label.data).cpu().sum()
             total_correct += correct.cpu()
-            total_seen += BATCH_SIZE
             loss.cpu()
             loss_sum += (loss * BATCH_SIZE)
-
     log_string('loss_sum' + str(loss_sum))
     log_string('total_correct' + str(total_correct))
