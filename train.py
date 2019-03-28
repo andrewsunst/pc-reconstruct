@@ -209,6 +209,9 @@ for epoch in range(args.max_epoch):
             loss = criterion(pred_val, label)
             pred_choice = pred_val.data.max(1)[1]
             correct = pred_choice.eq(label.data).cpu().sum()
-            log_string('loss_sum'+str(loss))
-            log_string('total_correct'+str(correct))
+            total_correct+=correct
+            total_seen+=BATCH_SIZE
+            loss_sum+=(loss*BATCH_SIZE)
 
+    log_string('loss_sum'+str(loss_sum))
+    log_string('total_correct'+str(total_correct))
