@@ -202,16 +202,17 @@ for epoch in range(args.max_epoch):
             label = current_label[start_idx:end_idx]
             label = torch.from_numpy(label).float()
             label = label.to(args.device)
-            label=label.long()
+            label = label.long()
             model.eval()
             criterion = nn.CrossEntropyLoss()
             pred_val = model(jittered_data)
             loss = criterion(pred_val, label)
             pred_choice = pred_val.data.max(1)[1]
             correct = pred_choice.eq(label.data).cpu().sum()
-            total_correct+=correct
-            total_seen+=BATCH_SIZE
-            loss_sum+=(loss*BATCH_SIZE)
+            total_correct += correct.data.numpy()
+            total_seen += BATCH_SIZE
+            loss.data.numpy()
+            loss_sum += (loss * BATCH_SIZE)
 
-    log_string('loss_sum'+str(loss_sum))
-    log_string('total_correct'+str(total_correct))
+    log_string('loss_sum' + str(loss_sum))
+    log_string('total_correct' + str(total_correct))
