@@ -212,5 +212,6 @@ for epoch in range(args.max_epoch):
             total_correct+=correct
             total_seen+=BATCH_SIZE
             loss_sum+=(loss*BATCH_SIZE)
-            log_string(loss_sum)
-            log_string(total_correct)
+            log_string('loss_sum'+str(loss_sum))
+            log_string('total_correct'+str(total_correct))
+
