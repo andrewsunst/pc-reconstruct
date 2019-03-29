@@ -167,13 +167,14 @@ for epoch in range(args.max_epoch):
         log_string('mean loss: %f' % (loss_sum / float(num_batches)))
 
     # evaluate for each epoch
-
+    model.eval()
     total_correct = 0
     total_seen = 0
     loss_sum = 0
     total_seen_class = [0 for _ in range(NUM_CLASSES)]
     total_correct_class = [0 for _ in range(NUM_CLASSES)]
     for fn in range(len(TEST_FILES)):
+        print(fn)
         log_string('----' + str(fn) + '-----')
         current_data, current_label = provider.loadDataFile(TEST_FILES[fn])
         current_data = current_data[:, 0:NUM_POINT, :]
@@ -185,21 +186,18 @@ for epoch in range(args.max_epoch):
         for batch_idx in range(num_batches):
             start_idx = batch_idx * BATCH_SIZE
             end_idx = (batch_idx + 1) * BATCH_SIZE
-
-            # Augment batched point clouds by rotation and jittering
-            rotated_data = provider.rotate_point_cloud(current_data[start_idx:end_idx, :, :])
-            jittered_data = provider.jitter_point_cloud(rotated_data)
-            jittered_data = torch.from_numpy(jittered_data).float()
-            jittered_data = jittered_data.to(args.device)
+            data = current_data[start_idx:end_idx, :, :]
+            data = torch.from_numpy(data).float()
+            data=data.to(args.device)
             label = current_label[start_idx:end_idx]
-            label = torch.from_numpy(label).float()
+            label = torch.from_numpy(label).long()
             label = label.to(args.device)
-            label = label.long()
-            model.eval()
+
+
             criterion = nn.CrossEntropyLoss()
-            pred_val = model(jittered_data)
+            pred_val = model(data)
             loss = criterion(pred_val, label)
-            
+
             pred_choice = pred_val.data.max(1)[1]
             correct = pred_choice.eq(label.data).cpu().sum()
             total_correct += correct.cpu()
