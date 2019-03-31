@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser(description='PyTorch Point Cloud Classification
 parser.add_argument('--cuda', type=str, default='false', help='use CUDA')
 parser.add_argument('--num_point', type=int, default=1024)
 parser.add_argument('--max_epoch', type=int, default=250)
-parser.add_argument('--batch_size', type=int, default=16)
+parser.add_argument('--batch_size', type=int, default=32)
 parser.add_argument('--learning_rate', type=float, default=0.001)
 parser.add_argument('--momentum', type=float, default=0.9)
 parser.add_argument('--optimizer', default='adam')
@@ -167,7 +167,7 @@ for epoch in range(args.max_epoch):
         log_string('mean loss: %f' % (loss_sum / float(num_batches)))
 
     # evaluate for each epoch
-    model.eval()
+    model = model.eval()
     total_correct = 0
     total_seen = 0
     loss_sum = 0
@@ -188,11 +188,10 @@ for epoch in range(args.max_epoch):
             end_idx = (batch_idx + 1) * BATCH_SIZE
             data = current_data[start_idx:end_idx, :, :]
             data = torch.from_numpy(data).float()
-            data=data.to(args.device)
+            data = data.to(args.device)
             label = current_label[start_idx:end_idx]
             label = torch.from_numpy(label).long()
             label = label.to(args.device)
-
 
             criterion = nn.CrossEntropyLoss()
             pred_val = model(data)
