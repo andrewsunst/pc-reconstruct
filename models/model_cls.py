@@ -33,8 +33,8 @@ class input_transform_net(nn.Module):
         x = F.relu(self.bn2(self.conv2(x)))
         x = F.relu(self.bn3(self.conv3(x)))
         x = self.mp(x)
-        """maxpooling output N,C,H,W (32,1024,1,1)"""
-        x = x.view(32, 1024)
+        """maxpooling output N,C,H,W (16,1024,1,1)"""
+        x = x.view(16, 1024)
         x = F.relu(self.bn4(self.fc1(x)))
         x = F.relu(self.bn5(self.fc2(x)))
         x = self.fc3(x)
@@ -80,12 +80,12 @@ class feature_transform_net(nn.Module):
         x = F.relu(self.bn2(self.conv2(x)))
         x = F.relu(self.bn3(self.conv3(x)))
         x = self.mp(x)
-        x = x.view(32, 1024)
+        x = x.view(16, 1024)
 
         x = F.relu(self.bn4(self.fc1(x)))
         x = F.relu(self.bn5(self.fc2(x)))
         x = self.fc3(x)
-        x = x.view(32, 64, 64)
+        x = x.view(16, 64, 64)
         return x
 
 
@@ -112,8 +112,8 @@ class output_net(nn.Module):
         x = F.relu(self.bn2(self.conv2(x)))
         x = F.relu(self.bn3(self.conv3(x)))
         x = self.mp(x)
-        """maxpooling output N,C,H,W (32,1024,1,1)"""
-        x = x.view(32, 1024)
+        """maxpooling output N,C,H,W (16,1024,1,1)"""
+        x = x.view(16, 1024)
         x = F.relu(self.bn4(self.fc1(x)))
         x = F.relu(self.bn5(self.fc2(self.dp1(x))))
         x = self.fc3(self.dp2(x))
@@ -133,10 +133,10 @@ class point_cls(nn.Module):
         self.output = output_net()
 
     def forward(self, x):
-        point_with_channel = x.view(32, 1, 1024, 3)
+        point_with_channel = x.view(16, 1, 1024, 3)
         out = self.inputrans(point_with_channel)
         data = torch.matmul(x, out)
-        data=data.view(32,1,1024,3)
+        data=data.view(16,1,1024,3)
         pre_out = self.prefeature(data)
         out2 = self.featuretransform(pre_out)
         pre_out = pre_out.squeeze()
@@ -144,21 +144,21 @@ class point_cls(nn.Module):
         out2 = out2.permute(0, 2, 1)
         net_transformed = torch.matmul(pre_out, out2)
         net_transformed = net_transformed.permute(0, 2, 1)
-        net_transformed = net_transformed.view(32, 64, 1024, 1)
+        net_transformed = net_transformed.view(16, 64, 1024, 1)
         output = self.output(net_transformed)
         return output
 
 
 if __name__ == '__main__':
-    sim_data = Variable(torch.rand(32, 1, 1024, 3))
+    sim_data = Variable(torch.rand(16, 1, 1024, 3))
     print(sim_data.type())
     trans = input_transform_net()
     out = trans(sim_data)
     print('input_transform_net', out.size())
 
-    sim_data1 = Variable(torch.rand(32, 1024, 3))
+    sim_data1 = Variable(torch.rand(16, 1024, 3))
     sim_data1 = torch.matmul(sim_data1, out)
-    sim_data1 = sim_data1.view(32, 1, 1024, 3)
+    sim_data1 = sim_data1.view(16, 1, 1024, 3)
     pre = pre_feature_transfrom_net()
     out1 = pre(sim_data1)
     print('pre_feature_transfrom_net', out1.size())
@@ -175,14 +175,14 @@ if __name__ == '__main__':
     net_transformed = torch.matmul(out1, out2)
     print('net_transformed', net_transformed.size())
     net_transformed = net_transformed.permute(0, 2, 1)
-    net_transformed = net_transformed.view(32, 64, 1024, 1)
+    net_transformed = net_transformed.view(16, 64, 1024, 1)
     print('net_transformed torch style', net_transformed.size())
 
     outputnet = output_net()
     out3 = outputnet(net_transformed)
     print('final out put', out3.size())
 
-    sim_data2 = Variable(torch.rand(32, 1024, 3))
+    sim_data2 = Variable(torch.rand(16, 1024, 3))
     pointcls=point_cls()
     out4=pointcls(sim_data2)
     print(out4.size())

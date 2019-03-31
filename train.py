@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser(description='PyTorch Point Cloud Classification
 parser.add_argument('--cuda', type=str, default='false', help='use CUDA')
 parser.add_argument('--num_point', type=int, default=1024)
 parser.add_argument('--max_epoch', type=int, default=250)
-parser.add_argument('--batch_size', type=int, default=32)
+parser.add_argument('--batch_size', type=int, default=16)
 parser.add_argument('--learning_rate', type=float, default=0.001)
 parser.add_argument('--momentum', type=float, default=0.9)
 parser.add_argument('--optimizer', default='adam')
