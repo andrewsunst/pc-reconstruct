@@ -16,7 +16,7 @@ sys.path.append(os.path.join(BASE_DIR, 'models'))
 parser = argparse.ArgumentParser(description='PyTorch Point Cloud Classification Model')
 parser.add_argument('--cuda', type=str, default='false', help='use CUDA')
 parser.add_argument('--num_point', type=int, default=1024)
-parser.add_argument('--max_epoch', type=int, default=250)
+parser.add_argument('--max_epoch', type=int, default=1000)
 parser.add_argument('--batch_size', type=int, default=32)
 parser.add_argument('--learning_rate', type=float, default=0.001)
 parser.add_argument('--momentum', type=float, default=0.9)
@@ -167,40 +167,43 @@ for epoch in range(args.max_epoch):
         log_string('mean loss: %f' % (loss_sum / float(num_batches)))
 
     # evaluate for each epoch
-    model = model.eval()
-    total_correct = 0
-    total_seen = 0
-    loss_sum = 0
-    total_seen_class = [0 for _ in range(NUM_CLASSES)]
-    total_correct_class = [0 for _ in range(NUM_CLASSES)]
-    for fn in range(len(TEST_FILES)):
-        print(fn)
-        log_string('----' + str(fn) + '-----')
-        current_data, current_label = provider.loadDataFile(TEST_FILES[fn])
-        current_data = current_data[:, 0:NUM_POINT, :]
-        current_label = np.squeeze(current_label)
+    with torch.no_grad():
+        model = model.eval()
+        total_correct = 0
+        total_seen = 0
+        loss_sum = 0
+        total_seen_class = [0 for _ in range(NUM_CLASSES)]
+        total_correct_class = [0 for _ in range(NUM_CLASSES)]
+        for fn in range(len(TEST_FILES)):
+            print(fn)
+            log_string('----eval:' + str(fn) + '-----')
+            current_data, current_label = provider.loadDataFile(TEST_FILES[fn])
+            current_data = current_data[:, 0:NUM_POINT, :]
+            current_label = np.squeeze(current_label)
 
-        file_size = current_data.shape[0]
-        num_batches = file_size // BATCH_SIZE
+            file_size = current_data.shape[0]
+            num_batches = file_size // BATCH_SIZE
 
-        for batch_idx in range(num_batches):
-            start_idx = batch_idx * BATCH_SIZE
-            end_idx = (batch_idx + 1) * BATCH_SIZE
-            data = current_data[start_idx:end_idx, :, :]
-            data = torch.from_numpy(data).float()
-            data = data.to(args.device)
-            label = current_label[start_idx:end_idx]
-            label = torch.from_numpy(label).long()
-            label = label.to(args.device)
+            for batch_idx in range(num_batches):
+                start_idx = batch_idx * BATCH_SIZE
+                end_idx = (batch_idx + 1) * BATCH_SIZE
+                data = current_data[start_idx:end_idx, :, :]
+                data = torch.from_numpy(data).float()
+                data = data.to(args.device)
+                label = current_label[start_idx:end_idx]
+                label = torch.from_numpy(label).long()
+                label = label.to(args.device)
 
-            criterion = nn.CrossEntropyLoss()
-            pred_val = model(data)
-            loss = criterion(pred_val, label)
+                criterion = nn.CrossEntropyLoss()
+                pred_val = model(data)
+                loss = criterion(pred_val, label)
 
-            pred_choice = pred_val.data.max(1)[1]
-            correct = pred_choice.eq(label.data).cpu().sum()
-            total_correct += correct.cpu()
-            loss.cpu()
-            loss_sum += (loss * BATCH_SIZE)
-    log_string('loss_sum' + str(loss_sum))
-    log_string('total_correct' + str(total_correct))
+                pred_choice = pred_val.data.max(1)[1]
+                correct = pred_choice.eq(label.data).sum()
+                total_correct += correct
+                total_seen+=BATCH_SIZE
+                loss_sum += (loss * BATCH_SIZE)
+        log_string('correct  ' + str(correct))
+        log_string('totalseen  ' + str(total_seen))
+        log_string('loss_sum ' + str(loss_sum/float(total_seen)))
+        log_string('total_correct ' + str(float(total_correct)/float(total_seen)))
