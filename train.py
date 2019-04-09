@@ -16,7 +16,7 @@ sys.path.append(os.path.join(BASE_DIR, 'models'))
 parser = argparse.ArgumentParser(description='PyTorch Point Cloud Classification Model')
 parser.add_argument('--cuda', type=str, default='false', help='use CUDA')
 parser.add_argument('--num_point', type=int, default=1024)
-parser.add_argument('--max_epoch', type=int, default=1000)
+parser.add_argument('--max_epoch', type=int, default=10)
 parser.add_argument('--batch_size', type=int, default=32)
 parser.add_argument('--learning_rate', type=float, default=0.001)
 parser.add_argument('--momentum', type=float, default=0.9)
@@ -201,9 +201,15 @@ for epoch in range(args.max_epoch):
                 pred_choice = pred_val.data.max(1)[1]
                 correct = pred_choice.eq(label.data).sum()
                 total_correct += correct
-                total_seen+=BATCH_SIZE
+                total_seen += BATCH_SIZE
                 loss_sum += (loss * BATCH_SIZE)
         log_string('correct  ' + str(correct))
         log_string('totalseen  ' + str(total_seen))
-        log_string('loss_sum ' + str(loss_sum/float(total_seen)))
-        log_string('total_correct ' + str(float(total_correct)/float(total_seen)))
+        log_string('loss_sum ' + str(loss_sum / float(total_seen)))
+        log_string('total_correct ' + str(float(total_correct) / float(total_seen)))
+
+torch.save(model.state_dict(), 'CLASS1')
+model = models.model_cls.point_cls()
+model.load_state_dict(torch.load('CLASS1'))
+for param_tensor in model.state_dict():
+    print(param_tensor, "\t", model.state_dict()[param_tensor].size())
