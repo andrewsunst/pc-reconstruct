@@ -1,0 +1,11 @@
+Namespace(batch_size=32, cuda='true', decay_rate=0.7, decay_step=200000, device=device(type='cuda'), learning_rate=0.001, log_dir='log', max_epoch=1000, model='model_cls', momentum=0.9, num_point=1024, optimizer='adam')
+epoch No.0
+mean loss: 6.875366
+correct  tensor(0, device='cuda:0')
+epoch No.1
+mean loss: 6.862527
+correct  tensor(0, device='cuda:0')
+epoch No.2
+mean loss: 6.857197
+correct  tensor(0, device='cuda:0')
+epoch No.3
