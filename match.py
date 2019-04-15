@@ -16,7 +16,7 @@ from scipy.spatial import Delaunay
 parser = argparse.ArgumentParser(description='PyTorch Point Cloud Classification Model')
 parser.add_argument('--cuda', type=str, default='false', help='use CUDA')
 parser.add_argument('--num_point', type=int, default=1024)
-parser.add_argument('--max_epoch', type=int, default=1000)
+parser.add_argument('--max_epoch', type=int, default=3000)
 parser.add_argument('--batch_size', type=int, default=32)
 parser.add_argument('--learning_rate', type=float, default=0.001)
 parser.add_argument('--momentum', type=float, default=0.9)
@@ -124,7 +124,6 @@ for epoch in range(MAX_EPOCH):
         start_idx = batch_idx * BATCH_SIZE
         end_idx = (batch_idx + 1) * BATCH_SIZE
 
-        # Augment batched point clouds by rotation and jittering
         rotated_data = provider.rotate_point_cloud(current_data[start_idx:end_idx, :, :])
         jittered_data = provider.jitter_point_cloud(rotated_data)
         jittered_data = torch.from_numpy(jittered_data).float()
@@ -145,12 +144,24 @@ for epoch in range(MAX_EPOCH):
         loss_sum += loss
     log_string('mean loss: %f' % (loss_sum / float(num_batches)))
 
+
     with torch.no_grad():
-        model = model.eval()
-        pred_val = model(test_set)
-        loss = criterion(pred_val, test_label)
-        pred_choice = pred_val.data.max(1)[1]
-        correct = pred_choice.eq(label.data).sum()
+        for batch_idx in range(num_batches):
+            start_idx = batch_idx * BATCH_SIZE
+            end_idx = (batch_idx + 1) * BATCH_SIZE
+            rotated_data = provider.rotate_point_cloud(current_data[start_idx:end_idx, :, :])
+            jittered_data = provider.jitter_point_cloud(rotated_data)
+            jittered_data = torch.from_numpy(jittered_data).float()
+            jittered_data = jittered_data.to(args.device)
+            label = current_label[start_idx:end_idx]
+            label = torch.from_numpy(label).float()
+            label = label.long()
+            label = label.to(args.device)
+            model = model.eval()
+            pred_val = model(jittered_data)
+            loss = criterion(pred_val, label)
+            pred_choice = pred_val.data.max(1)[1]
+            correct = pred_choice.eq(label.data).sum()
         log_string('correct  ' + str(correct))
 
 # pick = randint(0, counter - 1)

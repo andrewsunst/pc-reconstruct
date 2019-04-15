@@ -1,11 +1,266 @@
-Namespace(batch_size=32, cuda='true', decay_rate=0.7, decay_step=200000, device=device(type='cuda'), learning_rate=0.001, log_dir='log', max_epoch=1000, model='model_cls', momentum=0.9, num_point=1024, optimizer='adam')
+Namespace(batch_size=32, cuda='true', decay_rate=0.7, decay_step=200000, device=device(type='cuda'), learning_rate=0.001, log_dir='log', max_epoch=3000, model='model_cls', momentum=0.9, num_point=1024, optimizer='adam')
 epoch No.0
-mean loss: 6.875366
+mean loss: 6.882343
 correct  tensor(0, device='cuda:0')
 epoch No.1
-mean loss: 6.862527
+mean loss: 6.858352
 correct  tensor(0, device='cuda:0')
 epoch No.2
-mean loss: 6.857197
+mean loss: 6.882771
 correct  tensor(0, device='cuda:0')
 epoch No.3
+mean loss: 6.873480
+correct  tensor(0, device='cuda:0')
+epoch No.4
+mean loss: 6.864324
+correct  tensor(0, device='cuda:0')
+epoch No.5
+mean loss: 6.850336
+correct  tensor(0, device='cuda:0')
+epoch No.6
+mean loss: 6.857323
+correct  tensor(0, device='cuda:0')
+epoch No.7
+mean loss: 6.824365
+correct  tensor(0, device='cuda:0')
+epoch No.8
+mean loss: 6.824148
+correct  tensor(0, device='cuda:0')
+epoch No.9
+mean loss: 6.825699
+correct  tensor(0, device='cuda:0')
+epoch No.10
+mean loss: 6.778939
+correct  tensor(0, device='cuda:0')
+epoch No.11
+mean loss: 6.780942
+correct  tensor(1, device='cuda:0')
+epoch No.12
+mean loss: 6.742886
+correct  tensor(1, device='cuda:0')
+epoch No.13
+mean loss: 6.727556
+correct  tensor(0, device='cuda:0')
+epoch No.14
+mean loss: 6.721732
+correct  tensor(0, device='cuda:0')
+epoch No.15
+mean loss: 6.663984
+correct  tensor(0, device='cuda:0')
+epoch No.16
+mean loss: 6.663488
+correct  tensor(0, device='cuda:0')
+epoch No.17
+mean loss: 6.617105
+correct  tensor(0, device='cuda:0')
+epoch No.18
+mean loss: 6.592299
+correct  tensor(0, device='cuda:0')
+epoch No.19
+mean loss: 6.589884
+correct  tensor(0, device='cuda:0')
+epoch No.20
+mean loss: 6.582641
+correct  tensor(1, device='cuda:0')
+epoch No.21
+mean loss: 6.533585
+correct  tensor(0, device='cuda:0')
+epoch No.22
+mean loss: 6.545150
+correct  tensor(0, device='cuda:0')
+epoch No.23
+mean loss: 6.529471
+correct  tensor(0, device='cuda:0')
+epoch No.24
+mean loss: 6.469528
+correct  tensor(0, device='cuda:0')
+epoch No.25
+mean loss: 6.452378
+correct  tensor(0, device='cuda:0')
+epoch No.26
+mean loss: 6.422420
+correct  tensor(1, device='cuda:0')
+epoch No.27
+mean loss: 6.421920
+correct  tensor(0, device='cuda:0')
+epoch No.28
+mean loss: 6.388980
+correct  tensor(0, device='cuda:0')
+epoch No.29
+mean loss: 6.404920
+correct  tensor(0, device='cuda:0')
+epoch No.30
+mean loss: 6.392394
+correct  tensor(0, device='cuda:0')
+epoch No.31
+mean loss: 6.341429
+correct  tensor(1, device='cuda:0')
+epoch No.32
+mean loss: 6.330391
+correct  tensor(0, device='cuda:0')
+epoch No.33
+mean loss: 6.331567
+correct  tensor(0, device='cuda:0')
+epoch No.34
+mean loss: 6.314849
+correct  tensor(0, device='cuda:0')
+epoch No.35
+mean loss: 6.282818
+correct  tensor(0, device='cuda:0')
+epoch No.36
+mean loss: 6.245539
+correct  tensor(0, device='cuda:0')
+epoch No.37
+mean loss: 6.228967
+correct  tensor(0, device='cuda:0')
+epoch No.38
+mean loss: 6.250617
+correct  tensor(0, device='cuda:0')
+epoch No.39
+mean loss: 6.207613
+correct  tensor(1, device='cuda:0')
+epoch No.40
+mean loss: 6.200199
+correct  tensor(1, device='cuda:0')
+epoch No.41
+mean loss: 6.142677
+correct  tensor(0, device='cuda:0')
+epoch No.42
+mean loss: 6.176410
+correct  tensor(0, device='cuda:0')
+epoch No.43
+mean loss: 6.142172
+correct  tensor(1, device='cuda:0')
+epoch No.44
+mean loss: 6.095416
+correct  tensor(3, device='cuda:0')
+epoch No.45
+mean loss: 6.129356
+correct  tensor(0, device='cuda:0')
+epoch No.46
+mean loss: 6.082832
+correct  tensor(0, device='cuda:0')
+epoch No.47
+mean loss: 6.074348
+correct  tensor(0, device='cuda:0')
+epoch No.48
+mean loss: 6.069273
+correct  tensor(0, device='cuda:0')
+epoch No.49
+mean loss: 6.036250
+correct  tensor(0, device='cuda:0')
+epoch No.50
+mean loss: 6.035836
+correct  tensor(1, device='cuda:0')
+epoch No.51
+mean loss: 6.024448
+correct  tensor(0, device='cuda:0')
+epoch No.52
+mean loss: 6.003296
+correct  tensor(0, device='cuda:0')
+epoch No.53
+mean loss: 5.973511
+correct  tensor(2, device='cuda:0')
+epoch No.54
+mean loss: 5.974599
+correct  tensor(2, device='cuda:0')
+epoch No.55
+mean loss: 5.943850
+correct  tensor(0, device='cuda:0')
+epoch No.56
+mean loss: 5.936978
+correct  tensor(0, device='cuda:0')
+epoch No.57
+mean loss: 5.975118
+correct  tensor(0, device='cuda:0')
+epoch No.58
+mean loss: 5.908917
+correct  tensor(0, device='cuda:0')
+epoch No.59
+mean loss: 5.875054
+correct  tensor(2, device='cuda:0')
+epoch No.60
+mean loss: 5.891171
+correct  tensor(1, device='cuda:0')
+epoch No.61
+mean loss: 5.929245
+correct  tensor(0, device='cuda:0')
+epoch No.62
+mean loss: 5.871415
+correct  tensor(0, device='cuda:0')
+epoch No.63
+mean loss: 5.838379
+correct  tensor(0, device='cuda:0')
+epoch No.64
+mean loss: 5.819220
+correct  tensor(0, device='cuda:0')
+epoch No.65
+mean loss: 5.883579
+correct  tensor(0, device='cuda:0')
+epoch No.66
+mean loss: 5.821479
+correct  tensor(2, device='cuda:0')
+epoch No.67
+mean loss: 5.845295
+correct  tensor(1, device='cuda:0')
+epoch No.68
+mean loss: 5.812438
+correct  tensor(0, device='cuda:0')
+epoch No.69
+mean loss: 5.801251
+correct  tensor(1, device='cuda:0')
+epoch No.70
+mean loss: 5.783450
+correct  tensor(1, device='cuda:0')
+epoch No.71
+mean loss: 5.762284
+correct  tensor(0, device='cuda:0')
+epoch No.72
+mean loss: 5.763070
+correct  tensor(0, device='cuda:0')
+epoch No.73
+mean loss: 5.712700
+correct  tensor(1, device='cuda:0')
+epoch No.74
+mean loss: 5.743321
+correct  tensor(0, device='cuda:0')
+epoch No.75
+mean loss: 5.692228
+correct  tensor(0, device='cuda:0')
+epoch No.76
+mean loss: 5.734711
+correct  tensor(0, device='cuda:0')
+epoch No.77
+mean loss: 5.747824
+correct  tensor(1, device='cuda:0')
+epoch No.78
+mean loss: 5.671333
+correct  tensor(0, device='cuda:0')
+epoch No.79
+mean loss: 5.673293
+correct  tensor(1, device='cuda:0')
+epoch No.80
+mean loss: 5.634446
+correct  tensor(1, device='cuda:0')
+epoch No.81
+mean loss: 5.723855
+correct  tensor(1, device='cuda:0')
+epoch No.82
+mean loss: 5.690919
+correct  tensor(0, device='cuda:0')
+epoch No.83
+mean loss: 5.645766
+correct  tensor(1, device='cuda:0')
+epoch No.84
+mean loss: 5.664836
+correct  tensor(0, device='cuda:0')
+epoch No.85
+mean loss: 5.672515
+correct  tensor(1, device='cuda:0')
+epoch No.86
+mean loss: 5.606760
+correct  tensor(0, device='cuda:0')
+epoch No.87
+mean loss: 5.594370
+correct  tensor(1, device='cuda:0')
+epoch No.88
