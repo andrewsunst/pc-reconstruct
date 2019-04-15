@@ -9,9 +9,6 @@ import torch.optim as optim
 import math
 import torch.nn as nn
 from random import *
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-from scipy.spatial import Delaunay
 
 parser = argparse.ArgumentParser(description='PyTorch Point Cloud Classification Model')
 parser.add_argument('--cuda', type=str, default='false', help='use CUDA')
