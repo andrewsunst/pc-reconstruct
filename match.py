@@ -80,35 +80,42 @@ for i in range(len(data)):
 label_complete = np.squeeze(label_complete)
 # find the biggest type
 type_count = Counter(label_complete)
-most_common = type_count.most_common(1)
+most_common = type_count.most_common(40)
 length = most_common[0][1]
-pick_ones = np.ndarray(shape=(length, NUM_POINT, 3), dtype=float, order='F')
+pick_ones = np.ndarray(shape=(64, NUM_POINT, 3), dtype=float, order='F')
 counter = 0
 for i in range(len(label_complete)):
-    if label_complete[i] == 8.0:
+    if label_complete[i] == 6.0:
         pick_ones[counter] = data_complete[i]
         counter += 1
+# data of one category
+pick_ones = pick_ones[0:64]
+labels = np.arange(0, 64)
 
-pick_ones = pick_ones[0:864]
-labels = np.arange(0, 864)
+mul_data = np.ndarray(shape=(640, NUM_POINT, 3), dtype=float, order='F');
+mul_labels = np.zeros(640)
+
+for i in range(10):
+    rotated_data = provider.rotate_point_cloud(pick_ones)
+    jittered_data = provider.jitter_point_cloud(rotated_data)
+    mul_data[i*64:(i+1)*64,:,:]=jittered_data
+    mul_labels[i*64:(i+1)*64]=labels
+
+
+
+
 model = models.model_match.point_cls()
 model.to(args.device)
-
-pick = randint(0, 864)
-pick_points = data_complete[pick]
-pick_label = labels[pick]
-test_set = np.ndarray(shape=(BATCH_SIZE, NUM_POINT, 3), dtype=float, order='F')
-test_label = np.ndarray(shape=(BATCH_SIZE), dtype=float, order='F')
-for i in range(BATCH_SIZE):
-    test_set[i] = pick_points
-    test_label[i] = pick_label
-test_set = torch.from_numpy(test_set).float()
-test_set = test_set.to(args.device)
-test_label = torch.from_numpy(test_label).float()
-test_label = test_label.to(args.device)
-test_label = test_label.long()
+# individual test
+# pick = randint(0, 864)
+# pick_points = data_complete[pick]
+# pick_label = labels[pick]
+# test_set = np.ndarray(shape=(BATCH_SIZE, NUM_POINT, 3), dtype=float, order='F')
+# test_label = np.ndarray(shape=(BATCH_SIZE), dtype=float, order='F')
+# training process
+max_correct = 0
 for epoch in range(MAX_EPOCH):
-    current_data, current_label, _ = provider.shuffle_data(pick_ones, labels)
+    current_data, current_label, _ = provider.shuffle_data(mul_data, mul_labels)
     current_label = np.squeeze(current_label)
     file_size = current_data.shape[0]
     num_batches = file_size // BATCH_SIZE
@@ -141,7 +148,6 @@ for epoch in range(MAX_EPOCH):
         loss_sum += loss
     log_string('mean loss: %f' % (loss_sum / float(num_batches)))
 
-
     with torch.no_grad():
         for batch_idx in range(num_batches):
             start_idx = batch_idx * BATCH_SIZE
@@ -159,8 +165,10 @@ for epoch in range(MAX_EPOCH):
             loss = criterion(pred_val, label)
             pred_choice = pred_val.data.max(1)[1]
             correct = pred_choice.eq(label.data).sum()
+            if correct > max_correct:
+                max_correct = correct
         log_string('correct  ' + str(correct))
-
+print("max_correct", max_correct)
 # pick = randint(0, counter - 1)
 # pick_points = data_complete[pick]
 # x = pick_points[:, 0]
