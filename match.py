@@ -13,7 +13,7 @@ from random import *
 parser = argparse.ArgumentParser(description='PyTorch Point Cloud Classification Model')
 parser.add_argument('--cuda', type=str, default='false', help='use CUDA')
 parser.add_argument('--num_point', type=int, default=1024)
-parser.add_argument('--max_epoch', type=int, default=3000)
+parser.add_argument('--max_epoch', type=int, default=300)
 parser.add_argument('--batch_size', type=int, default=32)
 parser.add_argument('--learning_rate', type=float, default=0.001)
 parser.add_argument('--momentum', type=float, default=0.9)
@@ -98,11 +98,8 @@ mul_labels = np.zeros(640)
 for i in range(10):
     rotated_data = provider.rotate_point_cloud(pick_ones)
     jittered_data = provider.jitter_point_cloud(rotated_data)
-    mul_data[i*64:(i+1)*64,:,:]=jittered_data
-    mul_labels[i*64:(i+1)*64]=labels
-
-
-
+    mul_data[i * 64:(i + 1) * 64, :, :] = jittered_data
+    mul_labels[i * 64:(i + 1) * 64] = labels
 
 model = models.model_match.point_cls()
 model.to(args.device)
@@ -114,6 +111,8 @@ model.to(args.device)
 # test_label = np.ndarray(shape=(BATCH_SIZE), dtype=float, order='F')
 # training process
 max_correct = 0
+time = 0
+switch=0
 for epoch in range(MAX_EPOCH):
     current_data, current_label, _ = provider.shuffle_data(mul_data, mul_labels)
     current_label = np.squeeze(current_label)
@@ -167,8 +166,12 @@ for epoch in range(MAX_EPOCH):
             correct = pred_choice.eq(label.data).sum()
             if correct > max_correct:
                 max_correct = correct
+                if correct==32 and switch==0:
+                    time=epoch
+                    switch=1
         log_string('correct  ' + str(correct))
-print("max_correct", max_correct)
+
+print("max_correct", max_correct,time)
 # pick = randint(0, counter - 1)
 # pick_points = data_complete[pick]
 # x = pick_points[:, 0]
