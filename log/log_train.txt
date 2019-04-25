@@ -41,3 +41,18 @@ mean loss: 2.830227
 ----2-----
 mean loss: 2.896619
 ----3-----
+mean loss: 2.833608
+----4-----
+mean loss: 2.994535
+----eval:0-----
+----eval:1-----
+correct  tensor(4)
+totalseen  2464
+loss_sum tensor(3.2633)
+total_correct 0.1810064935064935
+epoch No.3
+----0-----
+mean loss: 3.010418
+----1-----
+mean loss: 2.884210
+----2-----
