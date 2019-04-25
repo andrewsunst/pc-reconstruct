@@ -119,16 +119,6 @@ class output_net(nn.Module):
         x = self.fc3(self.dp2(x))
         return x
 
-
-def variable_with_weight_decay(net, l2_value, skip_list=()):
-    decay, no_decay = [], []
-    for name, param in net.named_parameters():
-        if not param.requires_grad: continue # frozen weights
-        if len(param.shape) == 1 or name.endswith(".bias") or name in skip_list: no_decay.append(param)
-        else: decay.append(param)
-    return [{'params': no_decay, 'weight_decay': 0.}, {'params': decay, 'weight_decay': l2_value}]
-
-
 class point_cls(nn.Module):
     def __init__(self):
         super(point_cls, self).__init__()
@@ -159,9 +149,11 @@ if __name__ == '__main__':
     print(sim_data.type())
 
     trans = input_transform_net()
-    input_params = variable_with_weight_decay(trans, 2e-5)
-    input_sgd = torch.optim.SGD(input_params, lr=0.001)
-    out = input_sgd(sim_data)
+
+    # input_params = variable_with_weight_decay(trans, 2e-5)
+    # input_sgd = torch.optim.SGD(input_params, lr=0.001)
+
+    out = trans(sim_data)
 
     print('input_transform_net', out.size())
 
@@ -170,9 +162,11 @@ if __name__ == '__main__':
     sim_data1 = sim_data1.view(32, 1, 1024, 3)
 
     pre = pre_feature_transfrom_net()
-    pre_feature_params = variable_with_weight_decay(pre, 2e-5)
-    pre_feature_sgd = torch.optim.SGD(pre_feature_params, lr=0.001)
-    out1 = pre_feature_sgd(sim_data1)
+
+    # pre_feature_params = variable_with_weight_decay(pre, 2e-5)
+    # pre_feature_sgd = torch.optim.SGD(pre_feature_params, lr=0.001)
+
+    out1 = pre(sim_data1)
 
     print('pre_feature_transfrom_net', out1.size())
 
@@ -192,10 +186,10 @@ if __name__ == '__main__':
     print('net_transformed torch style', net_transformed.size())
 
     outputnet = output_net()
-    output_params = variable_with_weight_decay(outputnet, 2e-5)
-    output_sgd = torch.optim.SGD(output_params, lr=0.001)
+    # output_params = variable_with_weight_decay(outputnet, 2e-5)
+    # output_sgd = torch.optim.SGD(output_params, lr=0.001)
 
-    out3 = output_sgd(net_transformed)
+    out3 = outputnet(net_transformed)
 
     print('final out put', out3.size())
 

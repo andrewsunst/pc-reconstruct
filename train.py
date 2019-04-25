@@ -16,7 +16,7 @@ sys.path.append(os.path.join(BASE_DIR, 'models'))
 parser = argparse.ArgumentParser(description='PyTorch Point Cloud Classification Model')
 parser.add_argument('--cuda', type=str, default='false', help='use CUDA')
 parser.add_argument('--num_point', type=int, default=1024)
-parser.add_argument('--max_epoch', type=int, default=250)
+parser.add_argument('--max_epoch', type=int, default=20)
 parser.add_argument('--batch_size', type=int, default=32)
 parser.add_argument('--learning_rate', type=float, default=0.001)
 parser.add_argument('--momentum', type=float, default=0.9)
@@ -70,6 +70,9 @@ TRAIN_FILES = provider.getDataFiles( \
 TEST_FILES = provider.getDataFiles( \
     os.path.join(BASE_DIR, 'data/modelnet40_ply_hdf5_2048/test_files.txt'))
 
+# pre_feature_params = variable_with_weight_decay(pre, 2e-5)
+# pre_feature_sgd = torch.optim.SGD(pre_feature_params, lr=0.001)
+
 input_transform = models.model_cls.input_transform_net()
 pre_feature = models.model_cls.pre_feature_transfrom_net()
 feature_transform = models.model_cls.feature_transform_net()
@@ -84,6 +87,13 @@ def log_string(out_str):
     LOG_FOUT.flush()
     print(out_str)
 
+def variable_with_weight_decay(net, l2_value, skip_list=()):
+    decay, no_decay = [], []
+    for name, param in net.named_parameters():
+        if not param.requires_grad: continue # frozen weights
+        if len(param.shape) == 1 or name.endswith(".bias") or name in skip_list: no_decay.append(param)
+        else: decay.append(param)
+    return [{'params': no_decay, 'weight_decay': 0.}, {'params': decay, 'weight_decay': l2_value}]
 
 def exp_lr_decay(init_lr, global_step, decay_steps, decay_rate, staircase=True):
     """Decay learning rate by a factor of 0.1 every lr_decay_epoch epochs."""

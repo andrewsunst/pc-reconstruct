@@ -1,5 +1,43 @@
-Namespace(batch_size=32, cuda='false', decay_rate=0.7, decay_step=200000, device=device(type='cpu'), learning_rate=0.001, log_dir='log', max_epoch=250, model='model_cls', momentum=0.9, num_point=1024, optimizer='adam')
+Namespace(batch_size=32, cuda='false', decay_rate=0.7, decay_step=200000, device=device(type='cpu'), learning_rate=0.001, log_dir='log', max_epoch=20, model='model_cls', momentum=0.9, num_point=1024, optimizer='adam')
 epoch No.0
 ----0-----
-mean loss: 3.588596
+mean loss: 3.595062
 ----1-----
+mean loss: 3.235023
+----2-----
+mean loss: 3.060582
+----3-----
+mean loss: 3.003708
+----4-----
+mean loss: 2.963042
+----eval:0-----
+----eval:1-----
+correct  tensor(4)
+totalseen  2464
+loss_sum tensor(3.7222)
+total_correct 0.17978896103896103
+epoch No.1
+----0-----
+mean loss: 2.874939
+----1-----
+mean loss: 3.034294
+----2-----
+mean loss: 3.052427
+----3-----
+mean loss: 2.866045
+----4-----
+mean loss: 2.816075
+----eval:0-----
+----eval:1-----
+correct  tensor(6)
+totalseen  2464
+loss_sum tensor(2.8475)
+total_correct 0.19805194805194806
+epoch No.2
+----0-----
+mean loss: 2.853491
+----1-----
+mean loss: 2.830227
+----2-----
+mean loss: 2.896619
+----3-----
