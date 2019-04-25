@@ -70,12 +70,22 @@ TRAIN_FILES = provider.getDataFiles( \
 TEST_FILES = provider.getDataFiles( \
     os.path.join(BASE_DIR, 'data/modelnet40_ply_hdf5_2048/test_files.txt'))
 
-# pre_feature_params = variable_with_weight_decay(pre, 2e-5)
-# pre_feature_sgd = torch.optim.SGD(pre_feature_params, lr=0.001)
+
+def variable_with_weight_decay(net, l2_value, skip_list=()):
+    decay, no_decay = [], []
+    for name, param in net.named_parameters():
+        if not param.requires_grad: continue # frozen weights
+        if len(param.shape) == 1 or name.endswith(".bias") or name in skip_list: no_decay.append(param)
+        else: decay.append(param)
+    return [{'params': no_decay, 'weight_decay': 0.}, {'params': decay, 'weight_decay': l2_value}]
 
 input_transform = models.model_cls.input_transform_net()
 pre_feature = models.model_cls.pre_feature_transfrom_net()
-feature_transform = models.model_cls.feature_transform_net()
+
+params = variable_with_weight_decay(models.model_cls.feature_transform_net(), 2e-5)
+sgd = torch.optim.SGD(params, lr=0.001)
+
+feature_transform = sgd
 output = models.model_cls.output_net()
 
 model = models.model_cls.point_cls()
@@ -86,14 +96,6 @@ def log_string(out_str):
     LOG_FOUT.write(out_str + '\n')
     LOG_FOUT.flush()
     print(out_str)
-
-def variable_with_weight_decay(net, l2_value, skip_list=()):
-    decay, no_decay = [], []
-    for name, param in net.named_parameters():
-        if not param.requires_grad: continue # frozen weights
-        if len(param.shape) == 1 or name.endswith(".bias") or name in skip_list: no_decay.append(param)
-        else: decay.append(param)
-    return [{'params': no_decay, 'weight_decay': 0.}, {'params': decay, 'weight_decay': l2_value}]
 
 def exp_lr_decay(init_lr, global_step, decay_steps, decay_rate, staircase=True):
     """Decay learning rate by a factor of 0.1 every lr_decay_epoch epochs."""
