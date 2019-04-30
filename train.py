@@ -16,7 +16,7 @@ sys.path.append(os.path.join(BASE_DIR, 'models'))
 parser = argparse.ArgumentParser(description='PyTorch Point Cloud Classification Model')
 parser.add_argument('--cuda', type=str, default='false', help='use CUDA')
 parser.add_argument('--num_point', type=int, default=1024)
-parser.add_argument('--max_epoch', type=int, default=20)
+parser.add_argument('--max_epoch', type=int, default=200)
 parser.add_argument('--batch_size', type=int, default=32)
 parser.add_argument('--learning_rate', type=float, default=0.001)
 parser.add_argument('--momentum', type=float, default=0.9)
@@ -81,11 +81,7 @@ def variable_with_weight_decay(net, l2_value, skip_list=()):
 
 input_transform = models.model_cls.input_transform_net()
 pre_feature = models.model_cls.pre_feature_transfrom_net()
-
-params = variable_with_weight_decay(models.model_cls.feature_transform_net(), 2e-5)
-sgd = torch.optim.SGD(params, lr=0.001)
-
-feature_transform = sgd
+feature_transform = models.model_cls.feature_transform_net()
 output = models.model_cls.output_net()
 
 model = models.model_cls.point_cls()
@@ -135,6 +131,7 @@ def get_bn_decay(batch):
     return bn_decay
 
 
+
 for epoch in range(args.max_epoch):
     train_file_idxs = np.arange(0, len(TRAIN_FILES))
     np.random.shuffle(train_file_idxs)
@@ -165,8 +162,14 @@ for epoch in range(args.max_epoch):
             label = current_label[start_idx:end_idx]
             label = torch.from_numpy(label).float()
             label = label.to(args.device)
+            # optimizer = optim.Adam(model.parameters(),
+            #                        lr=args.learning_rate * math.pow(DECAY_RATE, (batch_idx * BATCH_SIZE) / DECAY_STEP))
             optimizer = optim.Adam(model.parameters(),
-                                   lr=args.learning_rate * math.pow(DECAY_RATE, (batch_idx * BATCH_SIZE) / DECAY_STEP))
+                                   lr=exp_lr_decay(args.learning_rate, batch_idx * BATCH_SIZE, DECAY_STEP, DECAY_RATE))
+            scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min')
+            # scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda epoch: 0.75 ** epoch)
+            # output_params = variable_with_weight_decay(output, 2e-5)
+            # output_sgd = torch.optim.SGD(output_params, lr=0.05)
             optimizer.zero_grad()
             model.train()
             criterion = nn.CrossEntropyLoss()
@@ -175,7 +178,9 @@ for epoch in range(args.max_epoch):
             loss = criterion(pred, label)
             loss.backward()
             optimizer.step()
+            # output_sgd.step()
             loss_sum += loss
+            scheduler.step(loss_sum)
         log_string('mean loss: %f' % (loss_sum / float(num_batches)))
 
     # evaluate for each epoch
@@ -221,7 +226,9 @@ for epoch in range(args.max_epoch):
         log_string('total_correct ' + str(float(total_correct) / float(total_seen)))
 
 torch.save(model.state_dict(), 'CLASS1')
+
 model = models.model_cls.point_cls()
+
 model.load_state_dict(torch.load('CLASS1'))
 for param_tensor in model.state_dict():
     print(param_tensor, "\t", model.state_dict()[param_tensor].size())
