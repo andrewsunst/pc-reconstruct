@@ -162,11 +162,13 @@ for epoch in range(args.max_epoch):
             label = current_label[start_idx:end_idx]
             label = torch.from_numpy(label).float()
             label = label.to(args.device)
+            learning_rate = exp_lr_decay(args.learning_rate, batch_idx * BATCH_SIZE, DECAY_STEP, DECAY_RATE)
             # optimizer = optim.Adam(model.parameters(),
             #                        lr=args.learning_rate * math.pow(DECAY_RATE, (batch_idx * BATCH_SIZE) / DECAY_STEP))
             optimizer = optim.Adam(model.parameters(),
-                                   lr=exp_lr_decay(args.learning_rate, batch_idx * BATCH_SIZE, DECAY_STEP, DECAY_RATE))
-            scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min')
+                                   lr=learning_rate)
+            # scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, 0.95, last_epoch=-1)
+            scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=0.45, patience=3)
             # scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda epoch: 0.75 ** epoch)
             # output_params = variable_with_weight_decay(output, 2e-5)
             # output_sgd = torch.optim.SGD(output_params, lr=0.05)
@@ -182,6 +184,7 @@ for epoch in range(args.max_epoch):
             loss_sum += loss
             scheduler.step(loss_sum)
         log_string('mean loss: %f' % (loss_sum / float(num_batches)))
+        log_string('Learning Rate: %f' % learning_rate)
 
     # evaluate for each epoch
     with torch.no_grad():
