@@ -79,7 +79,6 @@ output = models.model_cls.output_net()
 model = models.model_cls.point_cls()
 model = model.to(args.device)
 optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
-
 sched = lr_scheduler.ExponentialLR(optimizer, args.decay_rate)
 
 def log_string(out_str):
@@ -105,9 +104,9 @@ for epoch in range(args.max_epoch):
         total_correct = 0
         total_seen = 0
         loss_sum = 0
-
+        sched.step()
+        print('\nLearning rate at this epoch is: %0.9f' % sched.get_lr()[0])
         for batch_idx in range(num_batches):
-            sched.step()
             start_idx = batch_idx * BATCH_SIZE
             end_idx = (batch_idx + 1) * BATCH_SIZE
 
@@ -120,7 +119,6 @@ for epoch in range(args.max_epoch):
             label = torch.from_numpy(label).float()
             label = label.to(args.device)
             optimizer.zero_grad()
-
             model.train()
             criterion = nn.CrossEntropyLoss()
             pred = model(jittered_data)
