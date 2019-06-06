@@ -81,6 +81,7 @@ model = model.to(args.device)
 optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
 sched = lr_scheduler.ExponentialLR(optimizer, args.decay_rate)
 
+
 def log_string(out_str):
     LOG_FOUT.write(out_str + '\n')
     LOG_FOUT.flush()
@@ -91,7 +92,8 @@ for epoch in range(args.max_epoch):
     train_file_idxs = np.arange(0, len(TRAIN_FILES))
     np.random.shuffle(train_file_idxs)
     log_string('epoch No.' + str(epoch))
-    sched.step()
+    if sched.get_lr()[0] > 0.00001:
+        sched.step()
     # training process
     for fn in range(len(TRAIN_FILES)):
         log_string('----' + str(fn) + '-----')
