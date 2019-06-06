@@ -71,13 +71,7 @@ TEST_FILES = provider.getDataFiles( \
     os.path.join(BASE_DIR, 'data/modelnet40_ply_hdf5_2048/test_files.txt'))
 
 
-def variable_with_weight_decay(net, l2_value, skip_list=()):
-    decay, no_decay = [], []
-    for name, param in net.named_parameters():
-        if not param.requires_grad: continue # frozen weights
-        if len(param.shape) == 1 or name.endswith(".bias") or name in skip_list: no_decay.append(param)
-        else: decay.append(param)
-    return [{'params': no_decay, 'weight_decay': 0.}, {'params': decay, 'weight_decay': l2_value}]
+
 
 input_transform = models.model_cls.input_transform_net()
 pre_feature = models.model_cls.pre_feature_transfrom_net()
@@ -162,16 +156,11 @@ for epoch in range(args.max_epoch):
             label = current_label[start_idx:end_idx]
             label = torch.from_numpy(label).float()
             label = label.to(args.device)
-            learning_rate = exp_lr_decay(args.learning_rate, batch_idx * BATCH_SIZE, DECAY_STEP, DECAY_RATE)
-            # optimizer = optim.Adam(model.parameters(),
-            #                        lr=args.learning_rate * math.pow(DECAY_RATE, (batch_idx * BATCH_SIZE) / DECAY_STEP))
+
             optimizer = optim.Adam(model.parameters(),
-                                   lr=learning_rate)
-            # scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, 0.95, last_epoch=-1)
-            scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=0.45, patience=3)
-            # scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda epoch: 0.75 ** epoch)
-            # output_params = variable_with_weight_decay(output, 2e-5)
-            # output_sgd = torch.optim.SGD(output_params, lr=0.05)
+                                    lr=args.learning_rate * math.pow(DECAY_RATE, (batch_idx * BATCH_SIZE) / DECAY_STEP))
+
+
             optimizer.zero_grad()
             model.train()
             criterion = nn.CrossEntropyLoss()
@@ -180,9 +169,9 @@ for epoch in range(args.max_epoch):
             loss = criterion(pred, label)
             loss.backward()
             optimizer.step()
-            # output_sgd.step()
+
             loss_sum += loss
-            scheduler.step(loss_sum)
+
         log_string('mean loss: %f' % (loss_sum / float(num_batches)))
         log_string('Learning Rate: %f' % get_learning_rate(batch_idx))
 
