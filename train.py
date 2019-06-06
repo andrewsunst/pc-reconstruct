@@ -92,8 +92,8 @@ for epoch in range(args.max_epoch):
     train_file_idxs = np.arange(0, len(TRAIN_FILES))
     np.random.shuffle(train_file_idxs)
     log_string('epoch No.' + str(epoch))
-    if sched.get_lr()[0] > 0.00001:
-        sched.step()
+    
+
     # training process
     for fn in range(len(TRAIN_FILES)):
         log_string('----' + str(fn) + '-----')
