@@ -93,7 +93,7 @@ for epoch in range(args.max_epoch):
     np.random.shuffle(train_file_idxs)
     log_string('epoch No.' + str(epoch))
     current_lr=sched.get_lr()[0]
-    if current_lr>0.001:
+    if current_lr>0.00001:
         sched.step()
         print('\nLearning rate updated')
     print('\nLearning rate at this epoch is: %0.9f' % sched.get_lr()[0])
