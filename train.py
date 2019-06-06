@@ -92,8 +92,11 @@ for epoch in range(args.max_epoch):
     train_file_idxs = np.arange(0, len(TRAIN_FILES))
     np.random.shuffle(train_file_idxs)
     log_string('epoch No.' + str(epoch))
-    
-
+    current_lr=sched.get_lr()[0]
+    if current_lr>0.001:
+        sched.step()
+        print('\nLearning rate updated')
+    print('\nLearning rate at this epoch is: %0.9f' % sched.get_lr()[0])
     # training process
     for fn in range(len(TRAIN_FILES)):
         log_string('----' + str(fn) + '-----')
@@ -108,7 +111,7 @@ for epoch in range(args.max_epoch):
         total_seen = 0
         loss_sum = 0
 
-        print('\nLearning rate at this epoch is: %0.9f' % sched.get_lr()[0])
+
         for batch_idx in range(num_batches):
             start_idx = batch_idx * BATCH_SIZE
             end_idx = (batch_idx + 1) * BATCH_SIZE
