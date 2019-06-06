@@ -8,6 +8,7 @@ import provider
 import torch.nn as nn
 import models.model_cls
 import torch.optim as optim
+from torch.optim import lr_scheduler
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
@@ -116,10 +117,12 @@ for epoch in range(args.max_epoch):
             label = torch.from_numpy(label).float()
             label = label.to(args.device)
 
-            optimizer = optim.Adam(model.parameters(),
-                                   lr=args.learning_rate * math.pow(DECAY_RATE, (batch_idx * BATCH_SIZE) / DECAY_STEP))
+            optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
+
+            sched = lr_scheduler.ExponentialLR(optimizer, args.decay_rate)
 
             optimizer.zero_grad()
+            sched.step()
             model.train()
             criterion = nn.CrossEntropyLoss()
             pred = model(jittered_data)
