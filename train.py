@@ -173,7 +173,6 @@ for epoch in range(args.max_epoch):
             loss_sum += loss
 
         log_string('mean loss: %f' % (loss_sum / float(num_batches)))
-        log_string('Learning Rate: %f' % get_learning_rate(batch_idx))
 
     # evaluate for each epoch
     with torch.no_grad():
