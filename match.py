@@ -8,6 +8,7 @@ import models.model_match
 import torch.optim as optim
 import math
 import torch.nn as nn
+from torch.optim import lr_scheduler
 from random import *
 
 parser = argparse.ArgumentParser(description='PyTorch Point Cloud Classification Model')
@@ -103,6 +104,8 @@ for i in range(10):
 
 model = models.model_match.point_cls()
 model.to(args.device)
+optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
+sched = lr_scheduler.ExponentialLR(optimizer, args.decay_rate)
 # individual test
 # pick = randint(0, 864)
 # pick_points = data_complete[pick]
@@ -114,6 +117,11 @@ max_correct = 0
 time = 0
 switch=0
 for epoch in range(MAX_EPOCH):
+    current_lr = sched.get_lr()[0]
+    if current_lr > 0.00001:
+        sched.step()
+        print('\nLearning rate updated')
+    print('\nLearning rate at this epoch is: %0.9f' % sched.get_lr()[0])
     current_data, current_label, _ = provider.shuffle_data(mul_data, mul_labels)
     current_label = np.squeeze(current_label)
     file_size = current_data.shape[0]
@@ -134,8 +142,6 @@ for epoch in range(MAX_EPOCH):
         label = current_label[start_idx:end_idx]
         label = torch.from_numpy(label).float()
         label = label.to(args.device)
-        optimizer = optim.Adam(model.parameters(),
-                               lr=args.learning_rate * math.pow(DECAY_RATE, (batch_idx * BATCH_SIZE) / DECAY_STEP))
         optimizer.zero_grad()
         model.train()
         criterion = nn.CrossEntropyLoss()

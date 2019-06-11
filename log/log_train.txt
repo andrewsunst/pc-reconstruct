@@ -1,3 +1,26 @@
 Namespace(batch_size=32, cuda='false', decay_rate=0.7, decay_step=200000, device=device(type='cpu'), learning_rate=0.001, log_dir='log', max_epoch=250, model='model_cls', momentum=0.9, num_point=1024, optimizer='adam')
 epoch No.0
 ----0-----
+mean loss: 3.547201
+----1-----
+mean loss: 3.168528
+----2-----
+mean loss: 2.890012
+----3-----
+mean loss: 2.768473
+----4-----
+mean loss: 2.655418
+----eval:0-----
+----eval:1-----
+correct  tensor(8)
+totalseen  2464
+loss_sum tensor(2.6868)
+total_correct 0.24797077922077923
+epoch No.1
+----0-----
+mean loss: 2.476012
+----1-----
+mean loss: 2.406962
+----2-----
+mean loss: 2.337306
+----3-----
