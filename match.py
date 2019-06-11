@@ -115,10 +115,10 @@ sched = lr_scheduler.ExponentialLR(optimizer, args.decay_rate)
 # training process
 max_correct = 0
 time = 0
-switch=0
+switch = 0
 for epoch in range(MAX_EPOCH):
     current_lr = sched.get_lr()[0]
-    if current_lr > 0.00001:
+    if current_lr > 0.00001 and epoch % 10 == 0:
         sched.step()
         print('\nLearning rate updated')
     print('\nLearning rate at this epoch is: %0.9f' % sched.get_lr()[0])
@@ -172,12 +172,12 @@ for epoch in range(MAX_EPOCH):
             correct = pred_choice.eq(label.data).sum()
             if correct > max_correct:
                 max_correct = correct
-                if correct==32 and switch==0:
-                    time=epoch
-                    switch=1
+                if correct == 32 and switch == 0:
+                    time = epoch
+                    switch = 1
         log_string('correct  ' + str(correct))
 
-print("max_correct", max_correct,time)
+print("max_correct", max_correct, time)
 # pick = randint(0, counter - 1)
 # pick_points = data_complete[pick]
 # x = pick_points[:, 0]
