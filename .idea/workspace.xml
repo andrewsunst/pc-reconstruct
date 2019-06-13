@@ -15,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="90" column="67" selection-start-line="90" selection-start-column="67" selection-end-line="90" selection-end-column="67" />
+            <state relative-caret-position="466">
+              <caret line="101" column="63" selection-start-line="101" selection-start-column="63" selection-end-line="101" selection-end-column="63" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -85,10 +85,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="953" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="807" />
+    <option name="y" value="18" />
+    <option name="width" value="1116" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -277,15 +278,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="807" y="18" width="1116" height="1040" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11064278" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19480519" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27440348" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27924946" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.35249457" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -394,8 +395,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="90" column="67" selection-start-line="90" selection-start-column="67" selection-end-line="90" selection-end-column="67" />
+        <state relative-caret-position="466">
+          <caret line="101" column="63" selection-start-line="101" selection-start-column="63" selection-end-line="101" selection-end-column="63" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

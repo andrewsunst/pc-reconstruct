@@ -79,7 +79,7 @@ output = models.model_cls.output_net()
 model = models.model_cls.point_cls()
 model = model.to(args.device)
 optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
-sched = lr_scheduler.ExponentialLR(optimizer, args.decay_rate)
+
 
 
 def log_string(out_str):
@@ -99,7 +99,7 @@ for epoch in range(args.max_epoch):
     if current_lr>0.00001:
         update_lr(optimizer,epoch)
         print('\nLearning rate updated')
-    print('\nLearning rate at this epoch is: %0.9f' % sched.get_lr()[0])
+    print('\nLearning rate at this epoch is: %0.9f' % optimizer.param_groups[0]['lr'])
     # training process
     for fn in range(len(TRAIN_FILES)):
         log_string('----' + str(fn) + '-----')
