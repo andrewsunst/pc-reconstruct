@@ -87,14 +87,17 @@ def log_string(out_str):
     LOG_FOUT.flush()
     print(out_str)
 
+def update_lr(optimizer,batch):
+    optimizer.param_groups[0]['lr']=BASE_LEARNING_RATE*DECAY_RATE^(batch*BATCH_SIZE/DECAY_STEP)
+
 
 for epoch in range(args.max_epoch):
     train_file_idxs = np.arange(0, len(TRAIN_FILES))
     np.random.shuffle(train_file_idxs)
     log_string('epoch No.' + str(epoch))
-    current_lr=sched.get_lr()[0]
+    current_lr=optimizer.param_groups[0]['lr']
     if current_lr>0.00001:
-        sched.step()
+        update_lr(optimizer,epoch)
         print('\nLearning rate updated')
     print('\nLearning rate at this epoch is: %0.9f' % sched.get_lr()[0])
     # training process
