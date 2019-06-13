@@ -88,7 +88,7 @@ def log_string(out_str):
     print(out_str)
 
 def update_lr(optimizer,batch):
-    optimizer.param_groups[0]['lr']=BASE_LEARNING_RATE*DECAY_RATE^(batch*BATCH_SIZE/DECAY_STEP)
+    optimizer.param_groups[0]['lr']=BASE_LEARNING_RATE*DECAY_RATE**(batch*BATCH_SIZE/DECAY_STEP)
 
 
 for epoch in range(args.max_epoch):
