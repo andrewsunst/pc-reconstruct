@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1bcd2d23-8820-48d2-b461-0ba7d31c2d83" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BASE_DIR" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLASS1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/classification_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/classification_train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -255,6 +254,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="968" height="528" key="XDebugger.FullValuePopup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097259024" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1596397381927">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.-495.1080.1880@0.0.1920.1040" timestamp="1596397381927" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
