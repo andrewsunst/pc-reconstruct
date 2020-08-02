@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1bcd2d23-8820-48d2-b461-0ba7d31c2d83" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/PointCloudSampling.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/log_train.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log/log_train.txt" afterDir="false" />
     </list>
@@ -29,7 +28,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Racetrack_Q_Learning" />
+    <property name="last_opened_file_path" value="$USER_HOME$/PycharmProjects/pytorch" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -38,7 +37,7 @@
       <recent name="C:\Users\Andrew\projectcode\pc-reconstruct\model" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.PointCloudSampling">
+  <component name="RunManager" selected="Python.train">
     <configuration name="PointCloudSampling" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="pc-reconstruct" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -102,27 +101,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="model_match" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="pc-reconstruct" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/model_match.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="pc-reconstruct" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -144,13 +122,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="tst" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="pc-reconstruct" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/PycharmProjects/pytorch" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/PycharmProjects/pytorch/tst.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.PointCloudSampling" />
         <item itemvalue="Python.train" />
+        <item itemvalue="Python.tst" />
+        <item itemvalue="Python.PointCloudSampling" />
         <item itemvalue="Python.match" />
         <item itemvalue="Python.model_cls" />
-        <item itemvalue="Python.model_match" />
       </list>
     </recent_temporary>
   </component>
@@ -189,49 +188,70 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="2594" y="320" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1592633606761">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2594" y="320" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592633606761" />
     <state x="640" y="255" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1590716665490">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="640" y="255" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590716665490" />
-    <state width="1899" height="332" key="GridCell.Tab.0.bottom" timestamp="1592110978575">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1595097718148">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="332" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592110978575" />
+    <state x="740" y="275" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097718148" />
+    <state width="1899" height="332" key="GridCell.Tab.0.bottom" timestamp="1595566766585">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="332" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1595566766585" />
+    <state width="1899" height="237" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721618" />
+    <state width="1899" height="332" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592258142563" />
     <state width="1899" height="237" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="1899" height="332" key="GridCell.Tab.0.center" timestamp="1592110978575">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1899" height="332" key="GridCell.Tab.0.center" timestamp="1595566766585">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="332" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592110978575" />
+    <state width="1899" height="332" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1595566766585" />
+    <state width="1899" height="237" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721617" />
+    <state width="1899" height="332" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592258142563" />
     <state width="1899" height="237" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="1899" height="332" key="GridCell.Tab.0.left" timestamp="1592110978575">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1899" height="332" key="GridCell.Tab.0.left" timestamp="1595566766585">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="332" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592110978575" />
+    <state width="1899" height="332" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1595566766585" />
+    <state width="1899" height="237" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721617" />
+    <state width="1899" height="332" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592258142562" />
     <state width="1899" height="237" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="1899" height="332" key="GridCell.Tab.0.right" timestamp="1592110978575">
-      <screen x="1920" y="0" width="1920" height="1040" />
+    <state width="1899" height="332" key="GridCell.Tab.0.right" timestamp="1595566766585">
+      <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="332" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592110978575" />
+    <state width="1899" height="332" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1595566766585" />
+    <state width="1899" height="237" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721617" />
+    <state width="1899" height="332" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592258142563" />
     <state width="1899" height="237" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="1899" height="237" key="GridCell.Tab.1.bottom" timestamp="1591770597330">
+    <state width="1899" height="237" key="GridCell.Tab.1.bottom" timestamp="1595097721618">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="237" key="GridCell.Tab.1.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721618" />
     <state width="1899" height="237" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="1899" height="237" key="GridCell.Tab.1.center" timestamp="1591770597330">
+    <state width="1899" height="237" key="GridCell.Tab.1.center" timestamp="1595097721618">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="237" key="GridCell.Tab.1.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721618" />
     <state width="1899" height="237" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="1899" height="237" key="GridCell.Tab.1.left" timestamp="1591770597330">
+    <state width="1899" height="237" key="GridCell.Tab.1.left" timestamp="1595097721618">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="237" key="GridCell.Tab.1.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721618" />
     <state width="1899" height="237" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="1899" height="237" key="GridCell.Tab.1.right" timestamp="1591770597330">
+    <state width="1899" height="237" key="GridCell.Tab.1.right" timestamp="1595097721618">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1899" height="237" key="GridCell.Tab.1.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721618" />
     <state width="1899" height="237" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1587689979574">
+    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1595097259024">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="968" height="528" key="XDebugger.FullValuePopup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097259024" />
     <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040@0.0.1920.1040" timestamp="1587689979574" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1587679880307">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -245,6 +265,11 @@
           <url>file://$PROJECT_DIR$/PointCloudSampling.py</url>
           <line>101</line>
           <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$USER_HOME$/PycharmProjects/pytorch/tst.py</url>
+          <line>18</line>
+          <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
