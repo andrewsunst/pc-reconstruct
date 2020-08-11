@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1bcd2d23-8820-48d2-b461-0ba7d31c2d83" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/models/model_seg.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classification_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/classification_train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/log_train.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log/log_train.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,10 +200,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="640" y="255" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590716665490" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1595097718148">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1596586998499">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097718148" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.-940.1080.1880@0.0.1920.1040" timestamp="1596586998499" />
     <state width="1899" height="332" key="GridCell.Tab.0.bottom" timestamp="1595566766585">
       <screen x="-1920" y="0" width="1920" height="1040" />
     </state>
@@ -254,6 +257,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="968" height="528" key="XDebugger.FullValuePopup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097259024" />
+    <state x="662" y="223" width="596" height="594" key="find.popup" timestamp="1596762293352">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="662" y="223" width="596" height="594" key="find.popup/0.0.1920.1040/1920.-940.1080.1880@0.0.1920.1040" timestamp="1596762293352" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1596397381927">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
