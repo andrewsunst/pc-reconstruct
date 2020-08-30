@@ -2,10 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1bcd2d23-8820-48d2-b461-0ba7d31c2d83" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/models/model_seg.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/all_object_categories.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/catid_partid_to_overallid.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/color_partid_catid_map.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/overallid_to_catid_partid.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/part_color_mapping.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/ply_data_test0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/ply_data_test1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/ply_data_train0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/ply_data_train1.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/ply_data_train2.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/ply_data_train3.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/ply_data_train4.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/ply_data_train5.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/ply_data_val0.h5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/test_hdf5_file_list.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/train_hdf5_file_list.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/hdf5_data/val_hdf5_file_list.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/segmentation_train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classification_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/classification_train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/log_train.txt" beforeDir="false" afterPath="$PROJECT_DIR$/log/log_train.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/model_seg.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/model_seg.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,49 +57,7 @@
       <recent name="C:\Users\Andrew\projectcode\pc-reconstruct\model" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.train">
-    <configuration name="PointCloudSampling" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="pc-reconstruct" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PointCloudSampling.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="match" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="pc-reconstruct" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\Andrew\projectcode\pc-reconstruct\subclassification_match.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.segmentation_train">
     <configuration name="model_cls" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="pc-reconstruct" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -96,6 +71,69 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/model_cls.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="model_seg" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="pc-reconstruct" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/model_seg.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="segmentation_train" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="pc-reconstruct" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/segmentation_train.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="pc-reconstruct" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -125,37 +163,17 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tst" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="pc-reconstruct" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/PycharmProjects/pytorch" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/PycharmProjects/pytorch/tst.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.train" />
-        <item itemvalue="Python.tst" />
-        <item itemvalue="Python.PointCloudSampling" />
-        <item itemvalue="Python.match" />
+        <item itemvalue="Python.segmentation_train" />
+        <item itemvalue="Python.model_seg" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.model_cls" />
+        <item itemvalue="Python.train" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -205,66 +223,82 @@
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097718148" />
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.-940.1080.1880@0.0.1920.1040" timestamp="1596586998499" />
-    <state width="1899" height="332" key="GridCell.Tab.0.bottom" timestamp="1595566766585">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state width="936" height="234" key="GridCell.Tab.0.bottom" timestamp="1598750344965">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="332" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1595566766585" />
     <state width="1899" height="237" key="GridCell.Tab.0.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721618" />
-    <state width="1899" height="332" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592258142563" />
+    <state width="1899" height="237" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1597779885029" />
+    <state width="936" height="234" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598750344965" />
     <state width="1899" height="237" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="1899" height="332" key="GridCell.Tab.0.center" timestamp="1595566766585">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state width="936" height="234" key="GridCell.Tab.0.center" timestamp="1598750344965">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="332" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1595566766585" />
     <state width="1899" height="237" key="GridCell.Tab.0.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721617" />
-    <state width="1899" height="332" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592258142563" />
+    <state width="1899" height="237" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1597779885028" />
+    <state width="936" height="234" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598750344965" />
     <state width="1899" height="237" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="1899" height="332" key="GridCell.Tab.0.left" timestamp="1595566766585">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state width="936" height="234" key="GridCell.Tab.0.left" timestamp="1598750344965">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="332" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1595566766585" />
     <state width="1899" height="237" key="GridCell.Tab.0.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721617" />
-    <state width="1899" height="332" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592258142562" />
+    <state width="1899" height="237" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1597779885028" />
+    <state width="936" height="234" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598750344965" />
     <state width="1899" height="237" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="1899" height="332" key="GridCell.Tab.0.right" timestamp="1595566766585">
-      <screen x="-1920" y="0" width="1920" height="1040" />
+    <state width="936" height="234" key="GridCell.Tab.0.right" timestamp="1598750344965">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="332" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1595566766585" />
     <state width="1899" height="237" key="GridCell.Tab.0.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721617" />
-    <state width="1899" height="332" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1592258142563" />
+    <state width="1899" height="237" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1597779885028" />
+    <state width="936" height="234" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598750344965" />
     <state width="1899" height="237" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="1899" height="237" key="GridCell.Tab.1.bottom" timestamp="1595097721618">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="936" height="234" key="GridCell.Tab.1.bottom" timestamp="1598750344965">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="237" key="GridCell.Tab.1.bottom/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721618" />
+    <state width="1899" height="237" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1597779885029" />
+    <state width="936" height="234" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598750344965" />
     <state width="1899" height="237" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="1899" height="237" key="GridCell.Tab.1.center" timestamp="1595097721618">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="936" height="234" key="GridCell.Tab.1.center" timestamp="1598750344965">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="237" key="GridCell.Tab.1.center/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721618" />
+    <state width="1899" height="237" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1597779885029" />
+    <state width="936" height="234" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598750344965" />
     <state width="1899" height="237" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="1899" height="237" key="GridCell.Tab.1.left" timestamp="1595097721618">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="936" height="234" key="GridCell.Tab.1.left" timestamp="1598750344965">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="237" key="GridCell.Tab.1.left/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721618" />
+    <state width="1899" height="237" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1597779885029" />
+    <state width="936" height="234" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598750344965" />
     <state width="1899" height="237" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="1899" height="237" key="GridCell.Tab.1.right" timestamp="1595097721618">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="936" height="234" key="GridCell.Tab.1.right" timestamp="1598750344965">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="237" key="GridCell.Tab.1.right/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097721618" />
+    <state width="1899" height="237" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1597779885029" />
+    <state width="936" height="234" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598750344965" />
     <state width="1899" height="237" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591770597330" />
-    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1595097259024">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="968" height="528" key="XDebugger.FullValuePopup" timestamp="1598074944408">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state width="968" height="528" key="XDebugger.FullValuePopup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1595097259024" />
+    <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1597693394083" />
+    <state width="968" height="528" key="XDebugger.FullValuePopup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598074944408" />
     <state x="662" y="223" width="596" height="594" key="find.popup" timestamp="1596762293352">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="662" y="223" width="596" height="594" key="find.popup/0.0.1920.1040/1920.-940.1080.1880@0.0.1920.1040" timestamp="1596762293352" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1596397381927">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1598745418970">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.-495.1080.1880@0.0.1920.1040" timestamp="1596397381927" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1597369536487" />
+    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1598745418970" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -279,7 +313,19 @@
           <line>18</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/segmentation_train.py</url>
+          <line>131</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
       </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">

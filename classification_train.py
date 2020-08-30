@@ -30,6 +30,7 @@ parser.add_argument('--decay_rate', type=float, default=0.7)
 parser.add_argument('--model', default='model_cls')
 parser.add_argument('--log_dir', default='log')
 args = parser.parse_args()
+
 args.device = None
 if args.cuda == 'true':
     if torch.cuda.is_available():
