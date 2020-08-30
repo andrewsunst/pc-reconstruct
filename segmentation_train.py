@@ -126,6 +126,8 @@ for epoch in range(args.epoch):
         input_label_ph = np.zeros((32, 16)).astype(np.float32)
         pointclouds_ph = torch.from_numpy(pointclouds_ph)
         input_label_ph = torch.from_numpy(input_label_ph)
+        pointclouds_ph=pointclouds_ph.to(args.device)
+        input_label_ph=input_label_ph.to(args.device)
     labels_pred, seg_pred, end_points = model(pointclouds_ph, input_label_ph)
 
 
