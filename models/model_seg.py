@@ -194,7 +194,7 @@ def get_loss(l_pred, seg_pred, label, seg, weight, end_point):
         eye=eye.cuda()
     else:
         print()
-    mat_diff = torch.matmul(end_point, end_point.permute(0, 2, 1) - eye, dtype=torch.float)
+    mat_diff = torch.matmul(end_point, end_point.permute(0, 2, 1) - eye)
     mat_diff_loss = torch.sum(mat_diff ** 2) / 2
     total_loss = weight * seg_loss + (1 - weight) * label_loss + mat_diff_loss * 1e-3
 
