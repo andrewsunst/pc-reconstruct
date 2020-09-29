@@ -190,10 +190,10 @@ def get_loss(l_pred, seg_pred, label, seg, weight, end_point):
     per_instance_seg_pred_res = torch.argmax(seg_pred, 2)
     K = end_point.shape[1]
     eye=torch.tensor(np.eye(K)).float()
-    if label.device=='cpu':
-        print()
-    else:
+    if label.is_cuda:
         eye=eye.cuda()
+    else:
+        print()
     mat_diff = torch.matmul(end_point, end_point.permute(0, 2, 1) - eye, dtype=torch.float)
     mat_diff_loss = torch.sum(mat_diff ** 2) / 2
     total_loss = weight * seg_loss + (1 - weight) * label_loss + mat_diff_loss * 1e-3
@@ -209,10 +209,10 @@ def sparse_softmax_cross_entropy_with_logits2(input, target):
     f=f.float()
     one_hot_target = (target.cpu() == f).float()
     loss = -torch.sum(one_hot_target * torch.log(input.cpu()), [-1])
-    if input.device=='cpu':
-        print()
-    else:
+    if input.is_cuda:
         loss=loss.cuda()
+    else:
+        print()
     return loss
 
 
@@ -223,10 +223,10 @@ def sparse_softmax_cross_entropy_with_logits1(input, target):
     f = torch.arange(num_classes).reshape(1, num_classes)
     one_hot_target = (target.cpu() == f).float()
     loss = -torch.sum(one_hot_target * torch.log(input.cpu()), [-1])
-    if input.device=='cpu':
-        print()
-    else:
+    if input.is_cuda:
         loss=loss.cuda()
+    else:
+        print()
     return loss
 
 
