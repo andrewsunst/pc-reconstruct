@@ -189,7 +189,7 @@ def get_loss(l_pred, seg_pred, label, seg, weight, end_point):
     seg_loss = torch.mean(per_instance_seg_loss)
     per_instance_seg_pred_res = torch.argmax(seg_pred, 2)
     K = end_point.shape[1]
-    eye=torch.tensor(np.eye(K))
+    eye=torch.tensor(np.eye(K)).float()
     if label.device=='cpu':
         print()
     else:
