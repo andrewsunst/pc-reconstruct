@@ -189,7 +189,12 @@ def get_loss(l_pred, seg_pred, label, seg, weight, end_point):
     seg_loss = torch.mean(per_instance_seg_loss)
     per_instance_seg_pred_res = torch.argmax(seg_pred, 2)
     K = end_point.shape[1]
-    mat_diff = torch.matmul(end_point, end_point.permute(0, 2, 1) - torch.tensor(np.eye(K), dtype=torch.float))
+    eye=torch.tensor(np.eye(K))
+    if label.device=='cpu':
+        print()
+    else:
+        eye=eye.cuda()
+    mat_diff = torch.matmul(end_point, end_point.permute(0, 2, 1) - eye, dtype=torch.float)
     mat_diff_loss = torch.sum(mat_diff ** 2) / 2
     total_loss = weight * seg_loss + (1 - weight) * label_loss + mat_diff_loss * 1e-3
 
