@@ -174,7 +174,7 @@ for epoch in range(args.epoch):
                     labels_pred, seg_pred, labels_ph, seg_ph, 1.0, end_points)
                 tensor_cur_seg = torch.from_numpy(cur_seg)
                 tensor_cur_seg = tensor_cur_seg.long()
-                midstep = per_instance_seg_pred_res == tensor_cur_seg[begidx: endidx, :]
+                midstep = per_instance_seg_pred_res.cpu() == tensor_cur_seg[begidx: endidx, :]
                 midstep = midstep.data.numpy()
                 per_instance_part_acc = np.mean(midstep, axis=1)
                 average_part_acc = np.mean(per_instance_part_acc)
