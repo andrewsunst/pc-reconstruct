@@ -189,7 +189,7 @@ for epoch in range(args.epoch):
                 for shape_idx in range(begidx, endidx):
                     total_seen_per_cat[cur_labels[shape_idx]] += 1
                     total_label_acc_per_cat[cur_labels[shape_idx]] += np.int32(
-                        per_instance_label_pred[shape_idx - begidx] == cur_labels[shape_idx])
+                        per_instance_label_pred[shape_idx - begidx].cpu() == cur_labels[shape_idx].cpu())
                     total_seg_acc_per_cat[cur_labels[shape_idx]] += per_instance_part_acc[shape_idx - begidx]
         total_loss = total_loss * 1.0 / total_seen
         total_label_loss = total_label_loss * 1.0 / total_seen
