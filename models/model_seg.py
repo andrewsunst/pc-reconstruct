@@ -207,7 +207,7 @@ def sparse_softmax_cross_entropy_with_logits2(input, target):
     if input.device=='cpu':
         print()
     else:
-        loss=loss.gpu()
+        loss=loss.cuda()
     return loss
 
 
@@ -221,7 +221,7 @@ def sparse_softmax_cross_entropy_with_logits1(input, target):
     if input.device=='cpu':
         print()
     else:
-        loss=loss.gpu()
+        loss=loss.cuda()
     return loss
 
 
