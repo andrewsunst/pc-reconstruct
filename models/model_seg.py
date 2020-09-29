@@ -201,6 +201,7 @@ def sparse_softmax_cross_entropy_with_logits2(input, target):
     target = target.view(32, 2048, 1)
     num_classes = 50
     f = torch.arange(num_classes).reshape(1, num_classes)
+    f=f.float()
     one_hot_target = (target == f).float()
     loss = -torch.sum(one_hot_target * torch.log(input), [-1])
 

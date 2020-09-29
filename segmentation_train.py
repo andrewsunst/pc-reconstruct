@@ -121,18 +121,10 @@ flog = open(os.path.join(LOG_STORAGE_PATH, 'log.txt'), 'w')
 
 for epoch in range(args.epoch):
 
-    if epoch == 0:
-        pointclouds_ph = np.zeros((32, 2048, 3)).astype(np.float32)
-        input_label_ph = np.zeros((32, 16)).astype(np.float32)
-        pointclouds_ph = torch.from_numpy(pointclouds_ph)
-        input_label_ph = torch.from_numpy(input_label_ph)
-        pointclouds_ph=pointclouds_ph.to(args.device)
-        input_label_ph=input_label_ph.to(args.device)
-    labels_pred, seg_pred, end_points = model(pointclouds_ph, input_label_ph)
-
-
-    def eval_one_epoch(epoch):
-        # eval one epoch
+    printout(flog, '\n<<< Testing on the test dataset')
+    with torch.no_grad():
+        model = model.eval()
+        # initialize the loss output
         total_loss = 0.0
         total_label_loss = 0.0
         total_seg_loss = 0.0
@@ -143,6 +135,7 @@ for epoch in range(args.epoch):
         total_label_acc_per_cat = np.zeros((NUM_CATEGORIES)).astype(np.float32)
         total_seg_acc_per_cat = np.zeros((NUM_CATEGORIES)).astype(np.float32)
         total_seen_per_cat = np.zeros((NUM_CATEGORIES)).astype(np.int32)
+
         for i in range(num_test_file):
             cur_test_filename = os.path.join(hdf5_data_dir, test_file_list[i])
             printout(flog, 'Loading test file ' + cur_test_filename)
@@ -160,13 +153,55 @@ for epoch in range(args.epoch):
                 labels_ph = cur_labels[begidx:endidx, ...]
                 input_label_ph = cur_labels_one_hot[begidx:endidx, ...]
                 seg_ph = cur_seg[begidx:endidx, ...]
+
+                pointclouds_ph = torch.from_numpy(pointclouds_ph)
+                input_label_ph = torch.from_numpy(input_label_ph)
+                labels_ph = torch.from_numpy(labels_ph)
+                seg_ph = torch.from_numpy(seg_ph)
+
+                pointclouds_ph = pointclouds_ph.float()
+                input_label_ph = input_label_ph.float()
+                labels_ph = labels_ph.float()
+                seg_ph = seg_ph.float()
+
                 pointclouds_ph = pointclouds_ph.to(args.device)
-                labels_ph = labels_ph.to(args.device)
                 input_label_ph = input_label_ph.to(args.device)
+                labels_ph = labels_ph.to(args.device)
                 seg_ph = seg_ph.to(args.device)
 
+                labels_pred, seg_pred, end_points = model(pointclouds_ph, input_label_ph)
+                total_loss, label_loss, per_instance_label_loss, seg_loss, per_instance_seg_loss, per_instance_seg_pred_res = models.model_seg.get_loss(
+                    labels_pred, seg_pred, labels_ph, seg_ph, 1.0, end_points)
+                tensor_cur_seg = torch.from_numpy(cur_seg)
+                tensor_cur_seg = tensor_cur_seg.long()
+                midstep = per_instance_seg_pred_res == tensor_cur_seg[begidx: endidx, :]
+                midstep = midstep.data.numpy()
+                per_instance_part_acc = np.mean(midstep, axis=1)
+                average_part_acc = np.mean(per_instance_part_acc)
+                total_seen += 1
+                total_loss += total_loss
+                total_label_loss += label_loss
+                total_seg_loss += seg_loss
 
-    printout(flog, '\n<<< Testing on the test dataset ...')
+                per_instance_label_pred = np.argmax(labels_pred, axis=1)
+                total_label_acc += np.mean(np.float32(per_instance_label_pred.data.numpy() == cur_labels[begidx:endidx, ...]))
+                total_seg_acc += average_part_acc
+                for shape_idx in range(begidx, endidx):
+                    total_seen_per_cat[cur_labels[shape_idx]] += 1
+                    total_label_acc_per_cat[cur_labels[shape_idx]] += np.int32(
+                        per_instance_label_pred[shape_idx - begidx] == cur_labels[shape_idx])
+                    total_seg_acc_per_cat[cur_labels[shape_idx]] += per_instance_part_acc[shape_idx - begidx]
+        total_loss = total_loss * 1.0 / total_seen
+        total_label_loss = total_label_loss * 1.0 / total_seen
+        total_seg_loss = total_seg_loss * 1.0 / total_seen
+        total_label_acc = total_label_acc * 1.0 / total_seen
+        total_seg_acc = total_seg_acc * 1.0 / total_seen
+        printout(flog, '\tTesting Total Mean_loss: %f' % total_loss)
+        printout(flog, '\t\tTesting Label Mean_loss: %f' % total_label_loss)
+        printout(flog, '\t\tTesting Label Accuracy: %f' % total_label_acc)
+        printout(flog, '\t\tTesting Seg Mean_loss: %f' % total_seg_loss)
+        printout(flog, '\t\tTesting Seg Accuracy: %f' % total_seg_acc)
+    printout(flog, '\n<<< Training on the test dataset ...')
 
     current_lr = optimizer.param_groups[0]['lr']
     if current_lr > 0.00001:
