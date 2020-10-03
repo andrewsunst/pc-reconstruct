@@ -184,7 +184,8 @@ for epoch in range(args.epoch):
                 total_seg_loss += seg_loss
 
                 per_instance_label_pred = np.argmax(labels_pred, axis=1)
-                total_label_acc += np.mean(np.float32(per_instance_label_pred.data.numpy() == cur_labels[begidx:endidx, ...]))
+                total_label_acc += np.mean(
+                    np.float32(per_instance_label_pred.data.numpy() == cur_labels[begidx:endidx, ...]))
                 total_seg_acc += average_part_acc
                 for shape_idx in range(begidx, endidx):
                     total_seen_per_cat[cur_labels[shape_idx]] += 1
@@ -201,10 +202,84 @@ for epoch in range(args.epoch):
         printout(flog, '\t\tTesting Label Accuracy: %f' % total_label_acc)
         printout(flog, '\t\tTesting Seg Mean_loss: %f' % total_seg_loss)
         printout(flog, '\t\tTesting Seg Accuracy: %f' % total_seg_acc)
-    printout(flog, '\n<<< Training on the test dataset ...')
+    printout(flog, '\n>>> Training for the epoch %d/%d ...' % (epoch, args.epoch))
 
     current_lr = optimizer.param_groups[0]['lr']
     if current_lr > 0.00001:
         update_lr(optimizer, epoch)
         print('\nLearning rate updated')
     print('\nLearning rate for next epoch is: %0.9f' % optimizer.param_groups[0]['lr'])
+    train_file_idx = np.arange(0, len(train_file_list))
+    np.random.shuffle(train_file_idx)
+    for i in range(num_train_file):
+        cur_train_filename = os.path.join(hdf5_data_dir, train_file_list[train_file_idx[i]])
+        printout(flog, 'Loading train file ' + cur_train_filename)
+        cur_data, cur_labels, cur_seg = provider.loadDataFile_with_seg(cur_train_filename)
+        cur_data, cur_labels, order = provider.shuffle_data(cur_data, np.squeeze(cur_labels))
+        cur_seg = cur_seg[order, ...]
+
+        cur_labels_one_hot = convert_label_to_one_hot(cur_labels)
+        num_data = len(cur_labels)
+        num_batch = num_data // batch_size
+
+        total_loss = 0.0
+        total_label_loss = 0.0
+        total_seg_loss = 0.0
+        total_label_acc = 0.0
+        total_seg_acc = 0.0
+        for j in range(num_batch):
+            begidx = j * batch_size
+            endidx = (j + 1) * batch_size
+
+            pointclouds_ph = cur_data[begidx: endidx, ...]
+            labels_ph = cur_labels[begidx: endidx, ...]
+            input_label_ph = cur_labels_one_hot[begidx: endidx, ...]
+            seg_ph = cur_seg[begidx: endidx, ...]
+
+            pointclouds_ph = torch.from_numpy(pointclouds_ph)
+            input_label_ph = torch.from_numpy(input_label_ph)
+            labels_ph = torch.from_numpy(labels_ph)
+            seg_ph = torch.from_numpy(seg_ph)
+
+            pointclouds_ph = pointclouds_ph.float()
+            input_label_ph = input_label_ph.float()
+            labels_ph = labels_ph.float()
+            seg_ph = seg_ph.float()
+
+            pointclouds_ph = pointclouds_ph.to(args.device)
+            input_label_ph = input_label_ph.to(args.device)
+            labels_ph = labels_ph.to(args.device)
+            seg_ph = seg_ph.to(args.device)
+
+            optimizer.zero_grad()
+            model.train()
+            labels_pred, seg_pred, end_points = model(pointclouds_ph, input_label_ph)
+            total_loss, label_loss, per_instance_label_loss, seg_loss, per_instance_seg_loss, per_instance_seg_pred_res = models.model_seg.get_loss(
+                labels_pred, seg_pred, labels_ph, seg_ph, 1.0, end_points)
+
+            total_loss.backward()
+            optimizer.step()
+            per_instance_part_acc = np.mean(per_instance_seg_pred_res.data.numpy() == cur_seg[begidx: endidx, ...], axis=1)
+            average_part_acc = np.mean(per_instance_part_acc)
+            per_instance_label_pred = np.argmax(labels_pred.data.numpy(), axis=1)
+            total_label_acc += np.mean(
+                np.float32(per_instance_label_pred == cur_labels[begidx:endidx, ...]))
+            total_seg_acc += average_part_acc
+            total_loss = total_loss * 1.0 / num_batch
+            total_label_loss = total_label_loss * 1.0 / num_batch
+            total_seg_loss = total_seg_loss * 1.0 / num_batch
+            total_label_acc = total_label_acc * 1.0 / num_batch
+            total_seg_acc = total_seg_acc * 1.0 / num_batch
+
+            printout(flog, '\tTraining Total Mean_loss: %f' % total_loss)
+            printout(flog, '\t\tTraining Label Mean_loss: %f' % total_label_loss)
+            printout(flog, '\t\tTraining Label Accuracy: %f' % total_label_acc)
+            printout(flog, '\t\tTraining Seg Mean_loss: %f' % total_seg_loss)
+            printout(flog, '\t\tTraining Seg Accuracy: %f' % total_seg_acc)
+
+    if (epoch + 1) % 10 == 0:
+        torch.save(model.state_dict(), 'seg')
+        printout(flog, 'Successfully store the checkpoint model')
+
+    flog.flush()
+flog.close()
