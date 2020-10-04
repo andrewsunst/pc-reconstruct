@@ -251,9 +251,10 @@ for epoch in range(args.epoch):
             labels_ph = labels_ph.to(args.device)
             seg_ph = seg_ph.to(args.device)
 
-            optimizer.zero_grad()
+
             model.train()
             labels_pred, seg_pred, end_points = model(pointclouds_ph, input_label_ph)
+            optimizer.zero_grad()
             total_loss, label_loss, per_instance_label_loss, seg_loss, per_instance_seg_loss, per_instance_seg_pred_res = models.model_seg.get_loss(
                 labels_pred, seg_pred, labels_ph, seg_ph, 1.0, end_points)
 
