@@ -260,7 +260,7 @@ for epoch in range(args.epoch):
 
             total_loss.backward()
             optimizer.step()
-            per_instance_part_acc = np.mean(per_instance_seg_pred_res.data.numpy() == cur_seg[begidx: endidx, ...], axis=1)
+            per_instance_part_acc = np.mean(per_instance_seg_pred_res.cpu().data.numpy() == cur_seg[begidx: endidx, ...], axis=1)
             average_part_acc = np.mean(per_instance_part_acc)
             per_instance_label_pred = np.argmax(labels_pred.data.numpy(), axis=1)
             total_label_acc += np.mean(

@@ -1,3 +1,0 @@
-
-<<< Testing on the test dataset
-Loading test file D:\projectcode\pc-reconstruct\./data/hdf5_data\ply_data_val0.h5
